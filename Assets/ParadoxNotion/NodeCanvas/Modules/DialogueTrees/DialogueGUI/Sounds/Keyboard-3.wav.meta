@@ -1,29 +1,23 @@
 fileFormatVersion: 2
-guid: 5d3613a99f5e0ac43a2acdfd87d61a4e
-timeCreated: 1485179019
-licenseType: Store
+guid: 3227dbcb4acc9f94b9cc117bdfb83c98
 AudioImporter:
-  serializedVersion: 6
+  externalObjects: {}
+  serializedVersion: 8
   defaultSettings:
+    serializedVersion: 2
     loadType: 0
     sampleRateSetting: 0
     sampleRateOverride: 44100
     compressionFormat: 1
     quality: 1
     conversionMode: 0
+    preloadAudioData: 0
   platformSettingOverrides: {}
   forceToMono: 0
   normalize: 1
-  preloadAudioData: 1
   loadInBackground: 0
+  ambisonic: 0
   3D: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 14914
-  packageName: NodeCanvas
-  packageVersion: 3.3.1
-  assetPath: Assets/ParadoxNotion/NodeCanvas/Modules/DialogueTrees/DialogueGUI/Sounds/Keyboard-3.wav
-  uploadId: 704937
