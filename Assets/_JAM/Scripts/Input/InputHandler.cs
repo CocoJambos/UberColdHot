@@ -32,7 +32,8 @@ public class InputHandler : ScriptableObject, GameMappings.IGameplayActions
         InputMouseContext = new();
         InputMovementContext = new();
         
-        m_MappingsInstance.Enable();
+        m_MappingsInstance.Gameplay.SetCallbacks(this);
+        m_MappingsInstance.Gameplay.Enable();
     }
 
     private void OnDisable()
@@ -42,11 +43,6 @@ public class InputHandler : ScriptableObject, GameMappings.IGameplayActions
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed)
-        {
-            return;
-        }
-
         Debug.Log("MovementInput");
     }
 
