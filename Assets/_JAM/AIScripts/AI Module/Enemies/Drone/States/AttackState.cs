@@ -8,14 +8,10 @@ namespace JAM.AIModule.Drone.States
     public class AttackState : IState
     {
         private AttackBehaviour _attackBehaviour;
-        private DroneMovement _droneMovement;
-
-        // private TaskCancelationTocken _attackRoutine;
-    
-        public AttackState(AttackBehaviour attackBehaviour, DroneMovement droneMovement)
+        
+        public AttackState(AttackBehaviour attackBehaviour)
         {
             _attackBehaviour = attackBehaviour;
-            _droneMovement = droneMovement;
         }
 
         public void EnterState()

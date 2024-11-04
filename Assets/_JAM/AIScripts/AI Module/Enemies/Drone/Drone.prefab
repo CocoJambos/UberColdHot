@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7380825228271183403}
   - component: {fileID: 869443609989471996}
-  m_Layer: 0
+  - component: {fileID: 5669637344946818841}
+  - component: {fileID: 2513831253446365510}
+  m_Layer: 6
   m_Name: Drone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +51,56 @@ MonoBehaviour:
   _healthManager: {fileID: 4318500134689959106}
   _attackBehaviour: {fileID: 6292110119614442142}
   _targetFinder: {fileID: 1564895308587100980}
-  _droneMovement: {fileID: 4152794466646180123}
+  _dronePhysicsMovement: {fileID: 4152794466646180123}
+  _droneNavMeshMovement: {fileID: 8948642709774638970}
+--- !u!54 &5669637344946818841
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2162092517329564518}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 1
+  m_AngularDrag: 1
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
+--- !u!135 &2513831253446365510
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2162092517329564518}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3061292877385397722
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +112,7 @@ GameObject:
   - component: {fileID: 5006930851457665157}
   - component: {fileID: 1564895308587100980}
   - component: {fileID: 6292110119614442142}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53422f43a2a70dd43b91682b6065c8a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minimalAttackDistance: 2
+  _minimalAttackDistance: 5
   _target: {fileID: 0}
 --- !u!114 &6292110119614442142
 MonoBehaviour:
@@ -119,7 +170,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1804702504015431800}
   - component: {fileID: 4152794466646180123}
-  m_Layer: 0
+  - component: {fileID: 8948642709774638970}
+  - component: {fileID: 5131656346073636803}
+  m_Layer: 6
   m_Name: Movement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,10 +206,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca817e8fc93bfe443bc434164afd01ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _obstacleAvoider: {fileID: 5131656346073636803}
+  _speed: 0.25
+  _droneHeight: 10
+  _dragCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1.0024414
+      value: 4.137085
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _playerTarget: {fileID: 0}
-  _speed: 0.1
+  _rigidbody: {fileID: 5669637344946818841}
   _bodyObject: {fileID: 7380825228271183403}
   timeScale: 1
+--- !u!114 &8948642709774638970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4513547992977428695}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 264de460ef2e31142a733617b2f0b052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 5
+  _speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.76072574
+      value: 3.973674
+      inSlope: 15.105846
+      outSlope: 15.105846
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.6065041
+    - serializedVersion: 3
+      time: 0.9992988
+      value: 9.99974
+      inSlope: 5.1406374
+      outSlope: 5.1406374
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.08585551
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _playerTarget: {fileID: 0}
+  _rigidbody: {fileID: 5669637344946818841}
+  _agent: {fileID: 0}
+  stoppingDistance: 0.5
+--- !u!114 &5131656346073636803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4513547992977428695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fcb0c383b9c1f44ab33a66310c28c3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bodyTransform: {fileID: 7380825228271183403}
 --- !u!1 &5317543987217580873
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6426960088682005510}
   - component: {fileID: 4318500134689959106}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +354,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 924086058988633095}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7597703115763722217}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +423,7 @@ GameObject:
   - component: {fileID: 5412041506159644543}
   - component: {fileID: 3927276277956005320}
   - component: {fileID: 725442792517551978}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +476,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 752a3cd8657bf5c418bef4b03bbd3953, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

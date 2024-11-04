@@ -5,58 +5,34 @@ namespace JAM.AIModule.Drone
 {
     public class ObstacleAvoider : MonoBehaviour
     {
-        public Vector3 AvoidVector;
-
-        private bool _isObstacleInFront = false;
-
-
-        public Transform _player;
-
-        private void OnCollisionEnter(Collision other)
-        {
-            Debug.Log("OnCollisionEnter");
-        }
-
-        void OnCollisionStay(Collision collision)
-        {
-            Debug.Log("OnCollisionStay");
-            if(collision.gameObject.layer == LayerMask.NameToLayer("Playground"))
-            {
-                Debug.Log("Playground");
-
-                RecalculateAvoidVector(collision.contacts[0]);
-            }
-        }
-
-        void OnCollisionExit(Collision collision)
-        {
-            if(collision.gameObject.layer == LayerMask.NameToLayer("Playground"))
-            {
-                AvoidVector = Vector3.zero;
-            }
-        }
-
-        void RecalculateAvoidVector(ContactPoint contactPoint)
-        {
-            Debug.DrawRay(transform.position, contactPoint.point, Color.red, 0.5f);
-            AvoidVector = transform.position - contactPoint.point;
-        }
-
-
-        void Update()
-        {
-            LookForObstacle();
-        }
+        [SerializeField]
+        private Transform _bodyTransform;
         
-        private Vector3 ComposeToPlayerVector() => _player.position - transform.position;
-
-
-        void LookForObstacle()
+        public bool IsObstacleInPath(Vector3 direction)
         {
-            if (Physics.Raycast(transform.position, ComposeToPlayerVector(), out RaycastHit hit, 1000f))
+            RaycastHit hit;
+            if (Physics.Raycast(_bodyTransform.position, direction, out hit, 10f, LayerMask.GetMask("Playground")))
             {
-                _isObstacleInFront = !hit.transform.gameObject.layer.Equals(LayerMask.NameToLayer("Player"));
+                bool isObstacle = hit.collider != null && !hit.collider.isTrigger;
+                return isObstacle;
             }
+            return false;
+        }
+
+
+        public Vector3 GetAvoidanceDirection(Vector3 directionToTarget)
+        {
+            Vector3 left = Vector3.Cross(Vector3.up, directionToTarget).normalized;
+            Vector3 right = -left;
+            Vector3 up = Vector3.up;
+            Vector3 down = Vector3.down;
+
+            if(!IsObstacleInPath(left)) return left;
+            if(!IsObstacleInPath(right)) return right;
+            if(!IsObstacleInPath(up)) return up;
+            if(!IsObstacleInPath(down)) return down;
+
+            return directionToTarget;
         }
     }
 }

@@ -1,3 +1,4 @@
+using JAM.AIModule.Drone.ExtensionMethods;
 using System;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace JAM.AIModule.Drone
 
         private bool _isProperAttackDistance;
 
-        public bool IsProperAttackDistance
+        private bool IsProperAttackDistance
         {
             get => _isProperAttackDistance;
             set
@@ -43,7 +44,10 @@ namespace JAM.AIModule.Drone
         
         private float CalculateDistanceToPlayer()
         {
-            return Vector3.Distance(transform.position, _target.position);
+            Debug.DrawLine(transform.position.FlattenVector(), _target.position.FlattenVector(),Color.cyan,Time.deltaTime);
+            var distance = Vector3.Distance(transform.position.FlattenVector(), _target.position.FlattenVector());
+         //   Debug.Log("AttackDiatance: " + distance);
+            return distance;
         }
     }
 }

@@ -41,7 +41,6 @@ namespace JAM.Patterns.SM
 
         public void UpdateCurrentState()
         {
-            Debug.Log("UpdateCurrentState");
             _currentState.UpdateState();
         }
     }
