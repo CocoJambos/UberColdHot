@@ -46,6 +46,7 @@ public class FirstPersonCharacterController : Character
         }
     }
     
+    
     protected override void OnBeforeSimulationUpdate(float deltaTime)
     { 
         base.OnBeforeSimulationUpdate(deltaTime);
@@ -60,6 +61,23 @@ public class FirstPersonCharacterController : Character
             float normalizedSpeed = GetSpeed() / GetMaxSpeed();
             float accelerationFactor = m_AccelerationCurve.Evaluate(normalizedSpeed);
             maxAcceleration = m_BaseMaxAcceleration * accelerationFactor;
+            
+            CheckAndTriggerBlockDisappearing(characterMovement.currentGround.collider);
         }
+    }
+
+    private void CheckAndTriggerBlockDisappearing(Collider collider)
+    {
+        if(collider.CompareTag("BasicBlock") && collider.TryGetComponent(out BlockDisappearing blockDisappearing))
+        {
+            blockDisappearing.TryToStartDisappearingOnPlayerTouch();
+        }
+    }
+    
+    protected override void OnCollided(ref CollisionResult collisionResult)
+    {
+        base.OnCollided(ref collisionResult);
+        
+        CheckAndTriggerBlockDisappearing(collisionResult.collider);
     }
 }
