@@ -49,6 +49,7 @@ MonoBehaviour:
   _healthManager: {fileID: 4318500134689959106}
   _attackBehaviour: {fileID: 6292110119614442142}
   _targetFinder: {fileID: 1564895308587100980}
+  _droneMovement: {fileID: 4152794466646180123}
 --- !u!1 &3061292877385397722
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerTarget: {fileID: 0}
-  _speed: 1
+  _speed: 0.1
   _bodyObject: {fileID: 7380825228271183403}
   timeScale: 1
 --- !u!1 &5317543987217580873

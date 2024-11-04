@@ -9,14 +9,15 @@ namespace JAM.AIModule.Drone
         [SerializeField] private HealthManager _healthManager;
         [SerializeField] private AttackBehaviour _attackBehaviour;
         [SerializeField] private AttackTargetFinder _targetFinder;
+        [SerializeField] private DroneMovement _droneMovement;
         
         private AbstractStateMachine _droneStateMachine;
 
         private void Awake()
         {
             _droneStateMachine = new DroneStateMachine();
-            _droneStateMachine.RegisterState(new PlayerChaseState());
-            _droneStateMachine.RegisterState(new AttackState(_attackBehaviour));
+            _droneStateMachine.RegisterState(new PlayerChaseState(_droneMovement));
+            _droneStateMachine.RegisterState(new AttackState(_attackBehaviour,_droneMovement));
             _droneStateMachine.RegisterState(new DeadState());
             _droneStateMachine.SetState<PlayerChaseState>();
             SubscribeEvents();
