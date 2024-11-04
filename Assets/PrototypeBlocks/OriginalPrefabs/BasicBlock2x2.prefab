@@ -13,10 +13,13 @@ GameObject:
   - component: {fileID: 5222551931238641769}
   - component: {fileID: 2868221141597322823}
   - component: {fileID: 1375159255852496701}
-  - component: {fileID: 7068213804322046786}
+  - component: {fileID: 3447348753169045389}
+  - component: {fileID: 3867659697059089854}
+  - component: {fileID: 7396905771845597662}
+  - component: {fileID: 930032758368570506}
   m_Layer: 0
   m_Name: BasicBlock2x2
-  m_TagString: Untagged
+  m_TagString: BasicBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -330,8 +333,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5147113503351151079}
   m_Mesh: {fileID: 0}
---- !u!64 &7068213804322046786
-MeshCollider:
+--- !u!114 &3447348753169045389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5147113503351151079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e23d2bf2ebf8ed84baa166c2ca2b4b09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disappearingTween: {fileID: 7396905771845597662}
+  appearingTween: {fileID: 930032758368570506}
+  appearingDelay: 10
+--- !u!65 &3867659697059089854
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -348,7 +366,70 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7396905771845597662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5147113503351151079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73648353b01176d498fc6b945961c490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenType: 4
+  duration: 3
+  ease: 26
+  targetAsObject: 0
+  local: 0
+  useThisObjectToTween: 1
+  otherTransformToTween: {fileID: 0}
+  colorComponentType: 0
+  otherTextMeshProToTween: {fileID: 0}
+  otherSpriteToTween: {fileID: 0}
+  targetTransform: {fileID: 0}
+  targetTextMeshPro: {fileID: 0}
+  targetSprite: {fileID: 0}
+  targetImage: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  useEulerForRotation: 0
+  targetQuaternionRotation: {x: 0, y: 0, z: 0, w: 0}
+  targetEulerRotation: {x: 0, y: 0, z: 0}
+  targetScale: {x: 0, y: 0, z: 0}
+  targetColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &930032758368570506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5147113503351151079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73648353b01176d498fc6b945961c490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenType: 4
+  duration: 2
+  ease: 27
+  targetAsObject: 0
+  local: 0
+  useThisObjectToTween: 1
+  otherTransformToTween: {fileID: 0}
+  colorComponentType: 0
+  otherTextMeshProToTween: {fileID: 0}
+  otherSpriteToTween: {fileID: 0}
+  targetTransform: {fileID: 0}
+  targetTextMeshPro: {fileID: 0}
+  targetSprite: {fileID: 0}
+  targetImage: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  useEulerForRotation: 0
+  targetQuaternionRotation: {x: 0, y: 0, z: 0, w: 0}
+  targetEulerRotation: {x: 0, y: 0, z: 0}
+  targetScale: {x: 1, y: 1, z: 1}
+  targetColor: {r: 0, g: 0, b: 0, a: 0}
