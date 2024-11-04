@@ -44,6 +44,15 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""b3ab6876-135f-40eb-a549-981c3e5c29d9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -105,11 +114,22 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c4e27e91-6b6c-4734-9838-c3781662fd20"",
-                    ""path"": ""<VirtualMouse>/delta"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MouseMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c30ad665-0f50-4a4a-b7de-30b45060d46a"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -122,6 +142,7 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
         m_Gameplay_MouseMovement = m_Gameplay.FindAction("MouseMovement", throwIfNotFound: true);
+        m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
     }
 
     ~@GameMappings()
@@ -190,12 +211,14 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_Movement;
     private readonly InputAction m_Gameplay_MouseMovement;
+    private readonly InputAction m_Gameplay_Jump;
     public struct GameplayActions
     {
         private @GameMappings m_Wrapper;
         public GameplayActions(@GameMappings wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
         public InputAction @MouseMovement => m_Wrapper.m_Gameplay_MouseMovement;
+        public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -211,6 +234,9 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
             @MouseMovement.started += instance.OnMouseMovement;
             @MouseMovement.performed += instance.OnMouseMovement;
             @MouseMovement.canceled += instance.OnMouseMovement;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -221,6 +247,9 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
             @MouseMovement.started -= instance.OnMouseMovement;
             @MouseMovement.performed -= instance.OnMouseMovement;
             @MouseMovement.canceled -= instance.OnMouseMovement;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -242,5 +271,6 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnMouseMovement(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }

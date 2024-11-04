@@ -43,16 +43,28 @@ public class InputHandler : ScriptableObject, GameMappings.IGameplayActions
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        Debug.Log("MovementInput");
+        InputMovementContext.SetMovementInput(context.phase == InputActionPhase.Performed ? 
+            context.ReadValue<Vector2>() 
+            : Vector2.zero);
     }
 
     public void OnMouseMovement(InputAction.CallbackContext context)
     {
-        if(context.phase != InputActionPhase.Performed)
+        InputMouseContext.SetMouseDeltaInput(context.phase == InputActionPhase.Performed
+            ? context.ReadValue<Vector2>()
+            : Vector2.zero);
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
         {
-            return;
+            case InputActionPhase.Performed:
+                InputMovementContext.SetJumpIsPressedInput(true);
+                return;
+            case InputActionPhase.Canceled:
+                InputMovementContext.SetJumpIsPressedInput(false);
+                return;
         }
-        
-        Debug.Log("MouseInput");
     }
 }
