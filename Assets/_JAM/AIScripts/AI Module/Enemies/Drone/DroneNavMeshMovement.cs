@@ -39,6 +39,11 @@ namespace JAM.AIModule.Drone
             throw new System.NotImplementedException();
         }
 
+        public void InjectAttackBehaviour(IAttackBehaviour attackBehaviour)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void CalculatePath()
          {
              Debug.Log("CalculatePath");

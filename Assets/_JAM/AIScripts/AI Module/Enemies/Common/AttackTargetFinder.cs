@@ -6,47 +6,45 @@ namespace JAM.AIModule.Drone
 {
     public class AttackTargetFinder : MonoBehaviour
     {
-        [SerializeField] private float _minimalAttackDistance;
+        [SerializeField] private float _targetLockDistance;
+        [SerializeField] private float _targetLooseDistance;
         
-        // TODO: change to search 
-        public Transform _target;
+        private Transform _target;
+        private bool _isTargetLocked;
 
-        private bool _isProperAttackDistance;
-
-        private bool IsProperAttackDistance
+        private bool IsTargetLockedDistance
         {
-            get => _isProperAttackDistance;
             set
             {
-                if (_isProperAttackDistance == value) return;
-                _isProperAttackDistance = value;
-                (_isProperAttackDistance? OnTargetChasedEvent : OnTargetFoundEvent)?.Invoke();
+                if (_isTargetLocked == value) return;
+                _isTargetLocked = value;
+                (_isTargetLocked? OnTargetLostEvent : OnTargetLockedEvent)?.Invoke();
             }
         }
 
-        public Action OnTargetFoundEvent;
-        public Action OnTargetChasedEvent;
+        public Action OnTargetLockedEvent;
+        public Action OnTargetLostEvent;
         
-        private void Awake()
+        private void Start()
         {
-           // target = FindObjectsByType<Player>();
+            _target = PlayerTransform.Get();
         }
 
-        private void Update()
-        {
-            IsProperAttackDistance = CheckDistanceCondition();
-        }
+        private void Update() => CheckDistanceCondition();
 
-        private bool CheckDistanceCondition()
+        private void CheckDistanceCondition()
         {
-            return CalculateDistanceToPlayer() <= _minimalAttackDistance;
+            float distance = CalculateDistanceToPlayer();
+            if(distance <= _targetLockDistance)
+                IsTargetLockedDistance = true;
+            else if(distance >= _targetLooseDistance)
+                IsTargetLockedDistance = false;
         }
         
         private float CalculateDistanceToPlayer()
         {
             Debug.DrawLine(transform.position.FlattenVector(), _target.position.FlattenVector(),Color.cyan,Time.deltaTime);
             var distance = Vector3.Distance(transform.position.FlattenVector(), _target.position.FlattenVector());
-         //   Debug.Log("AttackDiatance: " + distance);
             return distance;
         }
     }

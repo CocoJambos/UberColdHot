@@ -19,6 +19,7 @@ namespace JAM.Patterns.SM
 
         public void SetState<TState>() where TState : IState
         {
+            Debug.Log("SetState " + typeof(TState).Name);
             SetState(_states[typeof(TState)]);
         }
 

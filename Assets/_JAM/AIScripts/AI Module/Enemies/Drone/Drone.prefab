@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 869443609989471996}
   - component: {fileID: 5669637344946818841}
   - component: {fileID: 2513831253446365510}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,10 +49,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthManager: {fileID: 4318500134689959106}
-  _attackBehaviour: {fileID: 6292110119614442142}
-  _targetFinder: {fileID: 1564895308587100980}
+  _chaserAttackBehaviour: {fileID: 6292110119614442142}
+  _fpvAttackBehaviour: {fileID: 4247497908821031233}
   _dronePhysicsMovement: {fileID: 4152794466646180123}
-  _droneNavMeshMovement: {fileID: 8948642709774638970}
+  _droneDestroyer: {fileID: 6870758091137892231}
 --- !u!54 &5669637344946818841
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -110,9 +110,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5006930851457665157}
-  - component: {fileID: 1564895308587100980}
   - component: {fileID: 6292110119614442142}
-  m_Layer: 6
+  - component: {fileID: 4247497908821031233}
+  m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,20 +134,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7597703115763722217}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1564895308587100980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3061292877385397722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53422f43a2a70dd43b91682b6065c8a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _minimalAttackDistance: 5
-  _target: {fileID: 0}
 --- !u!114 &6292110119614442142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +146,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52a49830c9927847b23235c5de3f077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _targetChasedMinDistance: 1
+  _targetLooseMinDistance: 4
+  _attackDelay: 2
+  _droneBodyTransform: {fileID: 7380825228271183403}
+--- !u!114 &4247497908821031233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3061292877385397722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd188e554e13b0946b439823e83d3bfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetChasedMinDistance: 2
+  _healthManager: {fileID: 4318500134689959106}
 --- !u!1 &4513547992977428695
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,9 +174,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1804702504015431800}
   - component: {fileID: 4152794466646180123}
-  - component: {fileID: 8948642709774638970}
   - component: {fileID: 5131656346073636803}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Movement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _obstacleAvoider: {fileID: 5131656346073636803}
-  _speed: 0.25
+  _speed: 10
   _droneHeight: 10
   _dragCurve:
     serializedVersion: 2
@@ -233,60 +236,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _playerTarget: {fileID: 0}
   _rigidbody: {fileID: 5669637344946818841}
   _bodyObject: {fileID: 7380825228271183403}
-  timeScale: 1
---- !u!114 &8948642709774638970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4513547992977428695}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 264de460ef2e31142a733617b2f0b052, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 5
-  _speedCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.76072574
-      value: 3.973674
-      inSlope: 15.105846
-      outSlope: 15.105846
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.6065041
-    - serializedVersion: 3
-      time: 0.9992988
-      value: 9.99974
-      inSlope: 5.1406374
-      outSlope: 5.1406374
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.08585551
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _playerTarget: {fileID: 0}
-  _rigidbody: {fileID: 5669637344946818841}
-  _agent: {fileID: 0}
-  stoppingDistance: 0.5
+  originalDrag: 1
+  finishDrag: 2
 --- !u!114 &5131656346073636803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +263,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6426960088682005510}
   - component: {fileID: 4318500134689959106}
-  m_Layer: 6
+  - component: {fileID: 6870758091137892231}
+  m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,6 +299,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 100
+--- !u!114 &6870758091137892231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5317543987217580873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5addcf57e2d1884eac42b32c6bd82f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _droneObject: {fileID: 2162092517329564518}
 --- !u!1 &6694714428775607237
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +321,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 924086058988633095}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -386,7 +353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7597703115763722217}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +390,7 @@ GameObject:
   - component: {fileID: 5412041506159644543}
   - component: {fileID: 3927276277956005320}
   - component: {fileID: 725442792517551978}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

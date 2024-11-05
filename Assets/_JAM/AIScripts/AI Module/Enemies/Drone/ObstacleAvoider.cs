@@ -19,7 +19,6 @@ namespace JAM.AIModule.Drone
             return false;
         }
 
-
         public Vector3 GetAvoidanceDirection(Vector3 directionToTarget)
         {
             Vector3 left = Vector3.Cross(Vector3.up, directionToTarget).normalized;

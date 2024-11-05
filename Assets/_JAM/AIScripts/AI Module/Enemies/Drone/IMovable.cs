@@ -8,5 +8,7 @@ namespace JAM.AIModule.Drone
 
         void UpdateMovement();
         void StopMovement();
+
+        void InjectAttackBehaviour(IAttackBehaviour attackBehaviour);
     }
 }

@@ -6,10 +6,13 @@ namespace JAM.AIModule.Drone
     public class PlayerChaseState : IState
     {
         private IMovable _movementDriver;
+        private IAttackBehaviour _attackBehaviour;
         
-        public PlayerChaseState(IMovable droneMovement)
+        public PlayerChaseState(IMovable droneMovement, IAttackBehaviour attackBehaviour)
         {
             _movementDriver = droneMovement;
+            _attackBehaviour = attackBehaviour;
+            _movementDriver.InjectAttackBehaviour(_attackBehaviour);
         }
 
         public void EnterState()
@@ -20,6 +23,7 @@ namespace JAM.AIModule.Drone
         public void UpdateState()
         {
             _movementDriver.UpdateMovement();
+            _attackBehaviour.UpdateBehaviour();
         }
 
         public void ExitState()

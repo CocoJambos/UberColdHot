@@ -1,22 +1,19 @@
 using JAM.Patterns.SM;
-using System.Collections;
-using UnityEngine;
-using System.Threading.Tasks;
 
 namespace JAM.AIModule.Drone.States
 {
     public class AttackState : IState
     {
-        private AttackBehaviour _attackBehaviour;
+        private IAttackBehaviour _attackBehaviour;
         
-        public AttackState(AttackBehaviour attackBehaviour)
+        public AttackState(IAttackBehaviour attackBehaviour)
         {
             _attackBehaviour = attackBehaviour;
         }
 
         public void EnterState()
         {
-            _attackBehaviour.AttackPlayer();
+            _attackBehaviour.AttackTarget();
         }
 
         public void UpdateState()
@@ -26,7 +23,7 @@ namespace JAM.AIModule.Drone.States
 
         public void ExitState()
         {
+            _attackBehaviour.StopAttackTarget();
         }
-        
     }
 }
