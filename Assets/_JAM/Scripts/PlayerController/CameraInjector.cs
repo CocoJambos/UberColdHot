@@ -1,12 +1,9 @@
-using System;
+
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CameraInjector : MonoBehaviour
 {
-    [SerializeField] private Camera m_Camera;
-    [SerializeField] private CinemachineBrain m_CinemachineBrain;
     [SerializeField] private CinemachineCamera m_CinemachineCamera;
     [SerializeField] private Transform m_CameraFollowTransform;
 
