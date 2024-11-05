@@ -234,8 +234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7b3f1582c16478cadf16d2e3c345e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
-  m_CinemachineBrain: {fileID: 0}
   m_CinemachineCamera: {fileID: 4946736121743487213}
   m_CameraFollowTransform: {fileID: 8052788586421927896}
 --- !u!1 &2490681598020416355
@@ -444,34 +442,34 @@ MonoBehaviour:
   _rotationMode: 0
   _rotationRate: 540
   _startingMovementMode: 1
-  _maxWalkSpeed: 15
+  _maxWalkSpeed: 35
   _minAnalogWalkSpeed: 0
-  _maxAcceleration: 20
-  _brakingDecelerationWalking: 20
-  _groundFriction: 8
+  _maxAcceleration: 15
+  _brakingDecelerationWalking: 1
+  _groundFriction: 1
   _canEverCrouch: 1
   _crouchedHeight: 1.25
   _unCrouchedHeight: 2
   _maxWalkSpeedCrouched: 3
-  _maxFallSpeed: 40
+  _maxFallSpeed: 25
   _brakingDecelerationFalling: 0
-  _fallingLateralFriction: 0.3
-  _airControl: 0.3
+  _fallingLateralFriction: 120000
+  _airControl: 0.528
   _canEverJump: 1
   _canJumpWhileCrouching: 1
   _jumpMaxCount: 1
-  _jumpImpulse: 5
-  _jumpMaxHoldTime: 0
+  _jumpImpulse: 10
+  _jumpMaxHoldTime: 0.1
   _jumpMaxPreGroundedTime: 0
   _jumpMaxPostGroundedTime: 0
-  _maxFlySpeed: 10
+  _maxFlySpeed: 5
   _brakingDecelerationFlying: 0
-  _flyingFriction: 1
+  _flyingFriction: 0
   _maxSwimSpeed: 3
   _brakingDecelerationSwimming: 0
   _swimmingFriction: 0
   _buoyancy: 1
-  _gravity: {x: 0, y: -9.81, z: 0}
+  _gravity: {x: 0, y: -30, z: 0}
   _gravityScale: 1
   _useRootMotion: 0
   _impartPlatformMovement: 0
