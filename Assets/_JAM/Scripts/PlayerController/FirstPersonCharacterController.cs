@@ -1,6 +1,7 @@
 using ECM2;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FirstPersonCharacterController : Character
 {
@@ -21,6 +22,26 @@ public class FirstPersonCharacterController : Character
 
     private void Update()
     {
+        if(Keyboard.current.leftBracketKey.isPressed)
+        {
+            groundFriction -= 0.1f;
+        }
+
+        if(Keyboard.current.rightBracketKey.isPressed)
+        {
+            groundFriction += 0.1f;
+        }
+
+        if(Keyboard.current.oKey.isPressed)
+        {
+            brakingDecelerationWalking -= 0.1f;
+        }
+
+        if(Keyboard.current.pKey.isPressed)
+        {
+            brakingDecelerationWalking += 0.1f;
+        }
+        
         Vector2 movementInput = m_InputHandler.InputMovementContext.MovementInput;
         Vector3 movementDirection = new(movementInput.x, 0, movementInput.y);
         movementDirection = m_CameraController.RelativeToCamera(movementDirection);
