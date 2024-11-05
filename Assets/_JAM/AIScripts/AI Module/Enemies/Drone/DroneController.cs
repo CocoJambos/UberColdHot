@@ -6,6 +6,14 @@ namespace JAM.AIModule.Drone
 {
     public class DroneController : MonoBehaviour
     {
+        //TEMP
+        public enum DroneType
+        {
+            Chaser,
+            Kamikaze
+        }
+        public DroneType droneType;
+        
         [SerializeField] private HealthManager _healthManager;
         [SerializeField] private ChaserAttackBehaviour _chaserAttackBehaviour;
         [SerializeField] private FpvAttackBehaviour _fpvAttackBehaviour;
@@ -21,10 +29,19 @@ namespace JAM.AIModule.Drone
             _droneStateMachine = new DroneStateMachine();
 
             _movementDriver = _dronePhysicsMovement;
-            _attackBehaviour = _fpvAttackBehaviour;
-            //_attackBehaviour = _chaserAttackBehaviour;
-            
-            _droneStateMachine.RegisterState(new PlayerChaseState(_movementDriver,_attackBehaviour));
+
+            // TEMP
+            if(droneType == DroneType.Chaser)
+            {
+                _attackBehaviour = _chaserAttackBehaviour;
+            }
+            else if(droneType == DroneType.Kamikaze)
+            {
+                _attackBehaviour = _fpvAttackBehaviour;
+            }
+            _movementDriver.InjectAttackBehaviour(_attackBehaviour);
+
+            _droneStateMachine.RegisterState(new PlayerChaseState(_movementDriver));
             _droneStateMachine.RegisterState(new AttackState(_attackBehaviour));
             _droneStateMachine.RegisterState(new DeadState(_droneDestroyer));
             _droneStateMachine.SetState<PlayerChaseState>();
@@ -34,6 +51,7 @@ namespace JAM.AIModule.Drone
         private void Update()
         {
             _droneStateMachine.UpdateCurrentState();
+            _attackBehaviour.UpdateBehaviour();
         }
 
         private void OnDestroy()
