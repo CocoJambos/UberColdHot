@@ -7,7 +7,7 @@ public class PlayerTransform : MonoBehaviour
     public static Transform Get()
     {
         if(_playerTransform == null)
-            _playerTransform = FindAnyObjectByType<Player>().transform;
+            _playerTransform = FindAnyObjectByType<FirstPersonCharacterController>().transform;
 
         return _playerTransform;
     }
