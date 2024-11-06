@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public enum CustomMovementModes
 {
+    None,
     WallRun,
 }
 
@@ -26,6 +27,13 @@ public class FirstPersonCharacterController : Character
 
         Cursor.lockState = CursorLockMode.Locked;
         m_BaseMaxAcceleration = GetMaxAcceleration();
+        
+        CustomMovementModeUpdated += OnCustomMovementModeUpdated;
+    }
+    
+    protected void OnDestroy()
+    {
+        CustomMovementModeUpdated -= OnCustomMovementModeUpdated;
     }
 
     private void Update()
@@ -74,8 +82,7 @@ public class FirstPersonCharacterController : Character
             StopJumping();
         }
     }
-    
-    
+
     protected override void OnBeforeSimulationUpdate(float deltaTime)
     { 
         base.OnBeforeSimulationUpdate(deltaTime);
@@ -96,10 +103,29 @@ public class FirstPersonCharacterController : Character
 
         if(IsFalling() || IsJumping())
         {
-            if(DetectWall(out CollisionResult collisionResult))
+            if(DetectWall(out CollisionResult collisionResult) && CanWallRun(collisionResult.surfaceNormal))
             {
-                CanWallRun(collisionResult.surfaceNormal);
+                SetMovementMode(MovementMode.Custom, (int)CustomMovementModes.WallRun);
             }
+        }
+    }
+    
+    protected override void OnCollided(ref CollisionResult collisionResult)
+    {
+        base.OnCollided(ref collisionResult);
+        
+        CheckAndTriggerBlockDisappearing(collisionResult.collider);
+    }
+    
+    private void OnCustomMovementModeUpdated(float deltaTime)
+    {
+        CustomMovementModes customMovementMode = (CustomMovementModes)GetCustomMovementMode();
+
+        switch(customMovementMode)
+        {
+            case CustomMovementModes.WallRun:
+                WallRun(deltaTime);
+                break;
         }
     }
 
@@ -138,11 +164,18 @@ public class FirstPersonCharacterController : Character
         
         return true;
     }
-    
-    protected override void OnCollided(ref CollisionResult collisionResult)
+
+    #region Custom Movement Modes
+
+    private void WallRun(float deltaTime)
     {
-        base.OnCollided(ref collisionResult);
         
-        CheckAndTriggerBlockDisappearing(collisionResult.collider);
     }
+
+    private bool IsWallRunning()
+    {
+        return (CustomMovementModes)GetCustomMovementMode() == CustomMovementModes.WallRun;
+    }
+
+    #endregion
 }
