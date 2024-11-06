@@ -1,5 +1,6 @@
 using JAM.AIModule.Drone.States;
 using JAM.Patterns.SM;
+using System;
 using UnityEngine;
 
 namespace JAM.AIModule.Drone
@@ -50,8 +51,12 @@ namespace JAM.AIModule.Drone
 
         private void Update()
         {
-            _droneStateMachine.UpdateCurrentState();
             _attackBehaviour.UpdateBehaviour();
+        }
+
+        private void FixedUpdate()
+        {
+            _droneStateMachine.UpdateCurrentState(Time.fixedDeltaTime);
         }
 
         private void OnDestroy()

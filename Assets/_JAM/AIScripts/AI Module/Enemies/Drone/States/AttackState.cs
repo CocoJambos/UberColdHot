@@ -16,9 +16,8 @@ namespace JAM.AIModule.Drone.States
             _attackBehaviour.AttackTarget();
         }
 
-        public void UpdateState()
+        public void UpdateState(float deltaTime)
         {
-            
         }
 
         public void ExitState()

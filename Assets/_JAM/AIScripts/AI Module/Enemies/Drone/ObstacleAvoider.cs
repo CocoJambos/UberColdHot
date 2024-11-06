@@ -7,11 +7,14 @@ namespace JAM.AIModule.Drone
     {
         [SerializeField]
         private Transform _bodyTransform;
+
+        [SerializeField] 
+        private LayerMask _collisionMask;
         
         public bool IsObstacleInPath(Vector3 direction)
         {
             RaycastHit hit;
-            if (Physics.Raycast(_bodyTransform.position, direction, out hit, 10f, LayerMask.GetMask("Playground")))
+            if (Physics.Raycast(_bodyTransform.position, direction, out hit, 10f, _collisionMask))
             {
                 bool isObstacle = hit.collider != null && !hit.collider.isTrigger;
                 return isObstacle;
