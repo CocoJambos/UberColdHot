@@ -3,11 +3,19 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum CustomMovementModes
+{
+    WallRun,
+}
+
 public class FirstPersonCharacterController : Character
 {
     [SerializeField] private InputHandler m_InputHandler;
     [SerializeField] private CameraController m_CameraController;
     [SerializeField] private AnimationCurve m_AccelerationCurve;
+    [SerializeField] private float m_WallRunMinAngle = 45f;
+    [SerializeField] private float m_WallRunMaxAngle = 110f;
+    [SerializeField] private float m_WallRunMinDistance = 0.3f;
 
     private float m_BaseMaxAcceleration;
     private bool m_WasJumpTriggered;
@@ -85,6 +93,14 @@ public class FirstPersonCharacterController : Character
             
             CheckAndTriggerBlockDisappearing(characterMovement.currentGround.collider);
         }
+
+        if(IsFalling() || IsJumping())
+        {
+            if(DetectWall(out CollisionResult collisionResult))
+            {
+                CanWallRun(collisionResult.surfaceNormal);
+            }
+        }
     }
 
     private void CheckAndTriggerBlockDisappearing(Collider collider)
@@ -93,6 +109,34 @@ public class FirstPersonCharacterController : Character
         {
             blockDisappearing.TryToStartDisappearingOnPlayerTouch();
         }
+    }
+
+    private bool CanWallRun(Vector3 wallNormal)
+    {
+        float angle = Vector3.Angle(wallNormal, GetForwardVector());
+        return angle >= m_WallRunMinAngle && angle <= m_WallRunMaxAngle;
+    }
+
+    private bool DetectWall(out CollisionResult collisionResult)
+    {
+        collisionResult = default;
+
+        bool leftSweepTest = characterMovement.MovementSweepTest(GetPosition(),
+            -GetRightVector(),
+            m_WallRunMinDistance,
+            out CollisionResult leftCollisionResult);
+
+        bool rightSweepTest = characterMovement.MovementSweepTest(GetPosition(),
+            GetRightVector(),
+            m_WallRunMinDistance,
+            out CollisionResult rightCollisionResult);
+
+        if(!(leftSweepTest || rightSweepTest))
+            return false;
+
+        collisionResult = leftSweepTest ? leftCollisionResult : rightCollisionResult;
+        
+        return true;
     }
     
     protected override void OnCollided(ref CollisionResult collisionResult)
