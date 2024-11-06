@@ -16,10 +16,11 @@ namespace JAM.AIModule.Drone
             _destroyer.DestroyDrone();
         }
 
-        public void UpdateState()
+        public void UpdateState(float deltaTime)
         {
+            
         }
-
+        
         public void ExitState()
         {
         }

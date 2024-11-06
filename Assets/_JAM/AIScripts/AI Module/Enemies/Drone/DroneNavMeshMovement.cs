@@ -29,19 +29,19 @@ namespace JAM.AIModule.Drone
             throw new System.NotImplementedException();
         }
 
-        public void UpdateMovement()
+        public void UpdateMovement(float deltaTime)
         {
             CalculatePath();
         }
 
         public void StopMovement()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void InjectAttackBehaviour(IAttackBehaviour attackBehaviour)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void CalculatePath()

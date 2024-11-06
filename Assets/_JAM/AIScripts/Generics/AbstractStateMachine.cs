@@ -40,9 +40,9 @@ namespace JAM.Patterns.SM
             _currentState.EnterState();
         }
 
-        public void UpdateCurrentState()
+        public void UpdateCurrentState(float deltaTime)
         {
-            _currentState.UpdateState();
+            _currentState.UpdateState(deltaTime);
         }
     }
 }

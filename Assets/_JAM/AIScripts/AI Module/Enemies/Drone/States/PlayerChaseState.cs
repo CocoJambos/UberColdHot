@@ -17,9 +17,9 @@ namespace JAM.AIModule.Drone
             _movementDriver.StartMovement();
         }
 
-        public void UpdateState()
+        public void UpdateState(float deltaTime)
         {
-            _movementDriver.UpdateMovement();
+            _movementDriver.UpdateMovement(deltaTime);
         }
 
         public void ExitState()

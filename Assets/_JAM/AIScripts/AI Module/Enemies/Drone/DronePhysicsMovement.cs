@@ -37,7 +37,7 @@ namespace JAM.AIModule.Drone
             _rigidbody.linearDamping = originalDrag;
         }
 
-        public void UpdateMovement()
+        public void UpdateMovement(float _deltaTime)
         {
             var moveVector = CalculateMovementVector();
             if(_obstacleAvoider.IsObstacleInPath(moveVector))
@@ -50,7 +50,9 @@ namespace JAM.AIModule.Drone
         
         private void MovementRoutine(Vector3 movementVector)
         {
-            _rigidbody.AddForce(movementVector * _speed * Time.deltaTime, ForceMode.VelocityChange);
+            _rigidbody.AddForce(movementVector * _speed, ForceMode.VelocityChange);
+            Quaternion targetRotation = Quaternion.LookRotation((_playerTarget.position - transform.position));
+            _rigidbody.MoveRotation(targetRotation);
         }
 
         private Vector3 CalculateMovementVector()

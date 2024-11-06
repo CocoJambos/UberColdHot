@@ -17,6 +17,7 @@ namespace JAM.AIModule
         private Coroutine _attackRoutine;
         private bool _isAttacking;
         private bool _isTargetChased;
+        private WaitForSeconds _waitForSecondsBetweenAttacks;
         
         private bool IsTargetChased
         {
@@ -34,6 +35,7 @@ namespace JAM.AIModule
         private void Start()
         {
             _target = PlayerTransform.Get();
+            _waitForSecondsBetweenAttacks = new WaitForSeconds(_attackDelay);
         }
 
         public void UpdateBehaviour()
@@ -65,7 +67,7 @@ namespace JAM.AIModule
             while(_isAttacking)
             {
                 AttakTargetRoutine();
-                yield return new WaitForSeconds(_attackDelay);
+                yield return _waitForSecondsBetweenAttacks;
             }
         }
 
