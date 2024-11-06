@@ -53,6 +53,15 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RestartCurrentLevel"",
+                    ""type"": ""Button"",
+                    ""id"": ""26de717d-1989-4dc2-8e49-8050fa88f7d2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,28 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d02cc29f-2cf5-4dd3-a2dc-9480f7895bc6"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RestartCurrentLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8795888-e1ad-43f4-939e-9b7353147ed0"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RestartCurrentLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +174,7 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
         m_Gameplay_MouseMovement = m_Gameplay.FindAction("MouseMovement", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+        m_Gameplay_RestartCurrentLevel = m_Gameplay.FindAction("RestartCurrentLevel", throwIfNotFound: true);
     }
 
     ~@GameMappings()
@@ -212,6 +244,7 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Movement;
     private readonly InputAction m_Gameplay_MouseMovement;
     private readonly InputAction m_Gameplay_Jump;
+    private readonly InputAction m_Gameplay_RestartCurrentLevel;
     public struct GameplayActions
     {
         private @GameMappings m_Wrapper;
@@ -219,6 +252,7 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
         public InputAction @MouseMovement => m_Wrapper.m_Gameplay_MouseMovement;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+        public InputAction @RestartCurrentLevel => m_Wrapper.m_Gameplay_RestartCurrentLevel;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -237,6 +271,9 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @RestartCurrentLevel.started += instance.OnRestartCurrentLevel;
+            @RestartCurrentLevel.performed += instance.OnRestartCurrentLevel;
+            @RestartCurrentLevel.canceled += instance.OnRestartCurrentLevel;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -250,6 +287,9 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @RestartCurrentLevel.started -= instance.OnRestartCurrentLevel;
+            @RestartCurrentLevel.performed -= instance.OnRestartCurrentLevel;
+            @RestartCurrentLevel.canceled -= instance.OnRestartCurrentLevel;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -272,5 +312,6 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnMouseMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnRestartCurrentLevel(InputAction.CallbackContext context);
     }
 }

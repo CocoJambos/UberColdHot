@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,7 +5,7 @@ public class MovementContext
 {
     public Vector2 MovementInput { get; private set; }
     public void SetMovementInput(Vector2 newInput) => MovementInput = newInput;
-    
+
     public bool IsJumpPressedInput { get; private set; }
     public void SetJumpIsPressedInput(bool newInput) => IsJumpPressedInput = newInput;
 }
@@ -23,7 +22,7 @@ public class InputHandler : ScriptableObject, GameMappings.IGameplayActions
     private GameMappings m_MappingsInstance = null;
     public MouseContext InputMouseContext { get; private set; }
     public MovementContext InputMovementContext { get; private set; }
-    
+
     private void OnEnable()
     {
         if(m_MappingsInstance == null)
@@ -31,7 +30,7 @@ public class InputHandler : ScriptableObject, GameMappings.IGameplayActions
 
         InputMouseContext = new();
         InputMovementContext = new();
-        
+
         m_MappingsInstance.Gameplay.SetCallbacks(this);
         m_MappingsInstance.Gameplay.Enable();
     }
@@ -43,8 +42,8 @@ public class InputHandler : ScriptableObject, GameMappings.IGameplayActions
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        InputMovementContext.SetMovementInput(context.phase == InputActionPhase.Performed ? 
-            context.ReadValue<Vector2>() 
+        InputMovementContext.SetMovementInput(context.phase == InputActionPhase.Performed ?
+            context.ReadValue<Vector2>()
             : Vector2.zero);
     }
 
@@ -57,7 +56,7 @@ public class InputHandler : ScriptableObject, GameMappings.IGameplayActions
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        switch (context.phase)
+        switch(context.phase)
         {
             case InputActionPhase.Performed:
                 InputMovementContext.SetJumpIsPressedInput(true);
@@ -65,6 +64,14 @@ public class InputHandler : ScriptableObject, GameMappings.IGameplayActions
             case InputActionPhase.Canceled:
                 InputMovementContext.SetJumpIsPressedInput(false);
                 return;
+        }
+    }
+
+    public void OnRestartCurrentLevel(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            GameplayManager.Instance.RestartCurrentLevel();
         }
     }
 }
