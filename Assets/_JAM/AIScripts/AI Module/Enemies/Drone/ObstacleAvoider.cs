@@ -29,10 +29,11 @@ namespace JAM.AIModule.Drone
             Vector3 up = Vector3.up;
             Vector3 down = Vector3.down;
 
-            if(!IsObstacleInPath(left)) return left;
-            if(!IsObstacleInPath(right)) return right;
             if(!IsObstacleInPath(up)) return up;
             if(!IsObstacleInPath(down)) return down;
+
+            if(!IsObstacleInPath(left)) return left;
+            if(!IsObstacleInPath(right)) return right;
 
             return directionToTarget;
         }

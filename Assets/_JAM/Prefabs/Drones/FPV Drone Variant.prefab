@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4247497908821031233, guid: ac3302aad2f323a42af8cd549722fc28, type: 3}
       propertyPath: _damagePerExplosion
-      value: 100
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4247497908821031233, guid: ac3302aad2f323a42af8cd549722fc28, type: 3}
       propertyPath: _droneHealthManager
