@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3526031484904919153}
+  - component: {fileID: 8499811974178473805}
   - component: {fileID: 3447348753169045389}
-  - component: {fileID: 3867659697059089854}
   - component: {fileID: 7396905771845597662}
   - component: {fileID: 930032758368570506}
   m_Layer: 0
@@ -36,6 +36,33 @@ Transform:
   - {fileID: 506169489475180204}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8499811974178473805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5147113503351151079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d20d7236d76ae243aaaec5cb9c6e4b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPlayerCollided:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3447348753169045389}
+        m_TargetAssemblyTypeName: BlockDisappearing, Assembly-CSharp
+        m_MethodName: TryToStartDisappearingOnPlayerTouch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3447348753169045389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,29 +76,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disappearingTween: {fileID: 7396905771845597662}
+  appearAfterDisappearing: 1
   appearingTween: {fileID: 930032758368570506}
   appearingDelay: 10
---- !u!65 &3867659697059089854
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5147113503351151079}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7396905771845597662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,13 +199,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Box_floor
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1aa2b6d8a1b5f2240afd873dfbfcb734, type: 3}
+      propertyPath: m_TagString
+      value: BasicBlock
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1aa2b6d8a1b5f2240afd873dfbfcb734, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9198266128427311607}
   m_SourcePrefab: {fileID: 100100000, guid: 1aa2b6d8a1b5f2240afd873dfbfcb734, type: 3}
 --- !u!4 &506169489475180204 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1aa2b6d8a1b5f2240afd873dfbfcb734, type: 3}
   m_PrefabInstance: {fileID: 39686895675011399}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &886530541405293590 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1aa2b6d8a1b5f2240afd873dfbfcb734, type: 3}
+  m_PrefabInstance: {fileID: 39686895675011399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &9198266128427311607
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886530541405293590}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.02, y: 0.02, z: 0.02}
+  m_Center: {x: 0, y: 0, z: 0}

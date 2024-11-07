@@ -1,0 +1,169 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3864325431013140103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1160158745383349714}
+  m_Layer: 0
+  m_Name: MoveHereOnOpen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1160158745383349714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3864325431013140103}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.262, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1726348025856402114}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &6777041372785940896
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4805916905567576536, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      propertyPath: m_Name
+      value: OtwieraneKraty-Move Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.057792664
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.955422
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -26.985058
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000086426724
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1160158745383349714}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4805916905567576536, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 1469615306943960755}
+    - targetCorrespondingSourceObject: {fileID: 4805916905567576536, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 5945219395295192559}
+  m_SourcePrefab: {fileID: 100100000, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+--- !u!4 &1726348025856402114 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+  m_PrefabInstance: {fileID: 6777041372785940896}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2071348852739176568 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4805916905567576536, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+  m_PrefabInstance: {fileID: 6777041372785940896}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1469615306943960755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071348852739176568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb03f04698bdcb488373fa5dd7f4294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons: []
+  onAllButtonsPressed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5945219395295192559}
+        m_TargetAssemblyTypeName: TweenController, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5945219395295192559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071348852739176568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73648353b01176d498fc6b945961c490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenType: 1
+  duration: 5
+  ease: 2
+  targetAsObject: 1
+  local: 0
+  useThisObjectToTween: 1
+  otherTransformToTween: {fileID: 0}
+  colorComponentType: 0
+  otherTextMeshProToTween: {fileID: 0}
+  otherSpriteToTween: {fileID: 0}
+  targetTransform: {fileID: 1160158745383349714}
+  targetTextMeshPro: {fileID: 0}
+  targetSprite: {fileID: 0}
+  targetImage: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  useEulerForRotation: 0
+  targetQuaternionRotation: {x: 0, y: 0, z: 0, w: 0}
+  targetEulerRotation: {x: 0, y: 0, z: 0}
+  targetScale: {x: 0, y: 0, z: 0}
+  targetColor: {r: 0, g: 0, b: 0, a: 0}

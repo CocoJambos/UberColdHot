@@ -60,7 +60,7 @@ public class SlidingMovement : MonoBehaviour
         {
             if(character.IsGrounded())
             {
-                character.CheckAndTriggerBlockDisappearing(Movement.currentGround.collider);
+                character.CheckCollisionWithBlocks(Movement.currentGround.collider);
             }
             else
             {
@@ -100,7 +100,7 @@ public class SlidingMovement : MonoBehaviour
         Movement.SetHeight(playerHeightWhileSliding);
 
         cameraMoveTween?.Kill();
-        cameraMoveTween = moveCameraToSlidingPositionAnim.Play();
+        cameraMoveTween = moveCameraToSlidingPositionAnim.PlayTween();
     }
 
     public void OnSlidingStopped()
@@ -108,7 +108,7 @@ public class SlidingMovement : MonoBehaviour
         Movement.SetHeight(character.unCrouchedHeight);
 
         cameraMoveTween?.Kill();
-        cameraMoveTween = moveCameraToStandingPositionAnim.Play();
+        cameraMoveTween = moveCameraToStandingPositionAnim.PlayTween();
     }
 
     //private Vector3 ExtractSideVelocity(Vector3 velocity) => cameraController.RelativeToCamera(new Vector3(cameraController.RelativeToCamera(velocity).x, 0f, 0f));

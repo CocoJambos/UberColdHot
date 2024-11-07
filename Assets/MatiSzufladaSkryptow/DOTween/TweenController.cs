@@ -121,9 +121,11 @@ public class TweenController : MonoBehaviour
 
     private Sequence currentSequence;
 
-    public Tween Play() => Play(null);
+    public void Play() => PlayTween(null);
 
-    public Tween Play(Action onComplete)
+    public Tween PlayTween() => PlayTween(null);
+
+    public Tween PlayTween(Action onComplete)
     {
         currentSequence?.Kill();
         currentSequence = DOTween.Sequence();

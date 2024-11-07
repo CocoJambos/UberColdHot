@@ -98,15 +98,15 @@ public class FirstPersonCharacterController : Character
             float accelerationFactor = m_AccelerationCurve.Evaluate(normalizedSpeed);
             maxAcceleration = m_BaseMaxAcceleration * accelerationFactor;
 
-            CheckAndTriggerBlockDisappearing(characterMovement.currentGround.collider);
+            CheckCollisionWithBlocks(characterMovement.currentGround.collider);
         }
     }
 
-    public void CheckAndTriggerBlockDisappearing(Collider collider)
+    public void CheckCollisionWithBlocks(Collider collider)
     {
-        if(collider.CompareTag(Tags.BasicBlock.ToString()) && collider.TryGetComponent(out BlockDisappearing blockDisappearing))
+        if(collider.CompareTag(Tags.BasicBlock.ToString()) && collider.transform.parent.TryGetComponent(out PlayerCollidedEvents playerCollided))
         {
-            blockDisappearing.TryToStartDisappearingOnPlayerTouch();
+            playerCollided.OnPlayerCollided();
         }
     }
 
@@ -114,6 +114,6 @@ public class FirstPersonCharacterController : Character
     {
         base.OnCollided(ref collisionResult);
 
-        CheckAndTriggerBlockDisappearing(collisionResult.collider);
+        CheckCollisionWithBlocks(collisionResult.collider);
     }
 }
