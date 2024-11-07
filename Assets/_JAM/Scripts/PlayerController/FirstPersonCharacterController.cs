@@ -230,7 +230,7 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
         }
     }
 
-    private void CheckAndTriggerBlockDisappearing(Collider collider)
+    public void CheckAndTriggerBlockDisappearing(Collider collider)
     {
         if(collider.CompareTag("BasicBlock") && collider.TryGetComponent(out BlockDisappearing blockDisappearing))
         {
