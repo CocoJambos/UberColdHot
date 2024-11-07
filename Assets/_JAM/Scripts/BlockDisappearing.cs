@@ -24,7 +24,6 @@ public class BlockDisappearing : MonoBehaviour
 
     public void TryToStartDisappearingOnPlayerTouch(float additionalDisappearingDelay)
     {
-        return;
         if(isAppearingOrDisappearing)
             return;
 
