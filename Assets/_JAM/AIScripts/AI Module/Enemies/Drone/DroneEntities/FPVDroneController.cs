@@ -18,11 +18,13 @@ public class FPVDroneController : DroneController
     
     protected override void SubscribeEvents()
     {
+        base.SubscribeEvents();
         _chasingBehaviour.OnTargetChasedEvent += OnTargetChasedEventHandler;
     }
     
     protected override void UnsubscribeEvents()
     {
+        base.UnsubscribeEvents();
         _chasingBehaviour.OnTargetChasedEvent -= OnTargetChasedEventHandler;
     }
 
