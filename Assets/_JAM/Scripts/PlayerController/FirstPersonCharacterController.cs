@@ -13,16 +13,21 @@ public class FirstPersonCharacterController : Character
     [SerializeField] private InputHandler m_InputHandler;
     [SerializeField] private CameraController m_CameraController;
     [SerializeField] private AnimationCurve m_AccelerationCurve;
+    [SerializeField][Range(0f, 1f)] private float mouseSensitivity = 0.1f;
+
+    [Header("Wall running")]
     [SerializeField] private float m_WallRunMinAngle = 45f;
     [SerializeField] private float m_WallRunMaxAngle = 110f;
     [SerializeField] private float m_WallRunMinDistance = 0.3f;
     [SerializeField] private float m_WallMinDistanceFromGround = 0.4f;
     [SerializeField] private float m_WallJumpScalar = 3f;
     [SerializeField] private float m_WallRunCooldown = 0.1f;
-    [SerializeField][Range(0f, 1f)] private float mouseSensitivity = 0.1f;
+    [SerializeField] private LayerMask m_WallLayers;
+    [SerializeField] private float m_FrontWallDetectionDistance = 2.2f;
 
     [Header("Custom Movement Modes")]
     [SerializeField] private SlidingMovement slidingMovement;
+
 
     private float m_BaseMaxAcceleration;
     private bool m_WasJumpTriggered;
@@ -126,8 +131,10 @@ public class FirstPersonCharacterController : Character
 
         if(IsWallRunning())
         {
-            if(characterMovement.MovementSweepTest(GetPosition(), GetVelocity(), 0.1f,
-                   out CollisionResult _))
+            if(Vector3.Dot(m_WallNormal.normalized, GetVelocity().normalized) != 0.0)
+                return;
+
+            if(characterMovement.Raycast(GetPosition(), GetVelocity().normalized, m_FrontWallDetectionDistance, m_WallLayers, out RaycastHit _))
             {
                 SetMovementMode(MovementMode.Falling);
             }
@@ -272,7 +279,7 @@ public class FirstPersonCharacterController : Character
     {
         characterMovement.SetPlaneConstraint(PlaneConstraint.None, default);
 
-        if(GetMovementMode() == MovementMode.Falling && jumpInputPressed)
+        if(GetMovementMode() == MovementMode.Falling)
         {
             LaunchCharacter(m_WallNormal * m_WallJumpScalar);
             SetVelocity(GetVelocity());
