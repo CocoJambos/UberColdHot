@@ -1,6 +1,5 @@
 using ECM2;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public enum CustomMovementModes
 {
@@ -14,17 +13,22 @@ public class FirstPersonCharacterController : Character
     [SerializeField] private InputHandler m_InputHandler;
     [SerializeField] private CameraController m_CameraController;
     [SerializeField] private AnimationCurve m_AccelerationCurve;
+    [SerializeField][Range(0f, 1f)] private float mouseSensitivity = 0.1f;
+
+    [Header("Wall running")]
     [SerializeField] private float m_WallRunMinAngle = 45f;
     [SerializeField] private float m_WallRunMaxAngle = 110f;
     [SerializeField] private float m_WallRunMinDistance = 0.3f;
     [SerializeField] private float m_WallMinDistanceFromGround = 0.4f;
     [SerializeField] private float m_WallJumpScalar = 3f;
     [SerializeField] private float m_WallRunCooldown = 0.1f;
-    [SerializeField][Range(0f, 1f)] private float mouseSensitivity = 0.1f;
+    [SerializeField] private LayerMask m_WallLayers;
+    [SerializeField] private float m_FrontWallDetectionDistance = 2.2f;
 
     [Header("Custom Movement Modes")]
     [SerializeField] private SlidingMovement slidingMovement;
-    
+
+
     private float m_BaseMaxAcceleration;
     private bool m_WasJumpTriggered;
     private bool m_WasWallRunTriggeredPastUpdate;
@@ -41,10 +45,10 @@ public class FirstPersonCharacterController : Character
 
         Cursor.lockState = CursorLockMode.Locked;
         m_BaseMaxAcceleration = GetMaxAcceleration();
-        
+
         CustomMovementModeUpdated += OnCustomMovementModeUpdated;
     }
-    
+
     protected void OnDestroy()
     {
         CustomMovementModeUpdated -= OnCustomMovementModeUpdated;
@@ -58,11 +62,11 @@ public class FirstPersonCharacterController : Character
 
         if(!IsWallRunning())
             SetMovementDirection(movementDirection);
-        
+
         Vector2 mouseInput = m_InputHandler.InputMouseContext.MouseDeltaInput;
         mouseInput *= mouseSensitivity;
         m_CameraController.AddCameraInput(-mouseInput.y);
-        
+
         if(!IsWallRunning())
             AddYawInput(mouseInput.x);
 
@@ -99,8 +103,8 @@ public class FirstPersonCharacterController : Character
         m_PastUpdateJumpState = isJumpPressed;
     }
 
-protected override void OnBeforeSimulationUpdate(float deltaTime)
-    { 
+    protected override void OnBeforeSimulationUpdate(float deltaTime)
+    {
         base.OnBeforeSimulationUpdate(deltaTime);
 
         if(IsWalking())
@@ -113,8 +117,8 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
             float normalizedSpeed = GetSpeed() / GetMaxSpeed();
             float accelerationFactor = m_AccelerationCurve.Evaluate(normalizedSpeed);
             maxAcceleration = m_BaseMaxAcceleration * accelerationFactor;
-            
-            CheckAndTriggerBlockDisappearing(characterMovement.currentGround.collider);
+
+            CheckCollisionWithBlocks(characterMovement.currentGround.collider);
         }
 
         if(IsFalling() || IsJumping())
@@ -127,8 +131,10 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
 
         if(IsWallRunning())
         {
-            if(characterMovement.MovementSweepTest(GetPosition(), GetVelocity(), 0.1f,
-                   out CollisionResult _))
+            if(Vector3.Dot(m_WallNormal.normalized, GetVelocity().normalized) != 0.0)
+                return;
+
+            if(characterMovement.Raycast(GetPosition(), GetVelocity().normalized, m_FrontWallDetectionDistance, m_WallLayers, out RaycastHit _))
             {
                 SetMovementMode(MovementMode.Falling);
             }
@@ -138,20 +144,20 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
             m_WallRunUpdateTime -= deltaTime;
         }
     }
-    
+
     protected override void OnCollided(ref CollisionResult collisionResult)
     {
         base.OnCollided(ref collisionResult);
-        
-        CheckAndTriggerBlockDisappearing(collisionResult.collider);
+
+        CheckCollisionWithBlocks(collisionResult.collider);
     }
 
     protected override void OnMovementModeChanged(MovementMode prevMovementMode, int prevCustomMode)
     {
         base.OnMovementModeChanged(prevMovementMode, prevCustomMode);
-        
+
         Debug.LogError($"{prevMovementMode.ToString()}");
-        
+
         if(prevMovementMode == MovementMode.Custom)
         {
             switch((CustomMovementModes)prevCustomMode)
@@ -160,7 +166,7 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
                     PostWallRun();
                     break;
             }
-            
+
             return;
         }
 
@@ -177,33 +183,33 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
 
     protected override bool IsJumpAllowed()
     {
-        if (!canJumpWhileCrouching && IsCrouched())
+        if(!canJumpWhileCrouching && IsCrouched())
             return false;
 
         return canEverJump && (IsWalking() || IsFalling() || IsWallRunning());
     }
-    
+
     protected override bool DoJump()
     {
         // World up, determined by gravity direction
-            
+
         Vector3 worldUp = -GetGravityDirection();
-            
+
         // Don't jump if we can't move up/down.
-            
-        if (characterMovement.isConstrainedToPlane && 
+
+        if(characterMovement.isConstrainedToPlane &&
             Mathf.Approximately(Vector3.Dot(characterMovement.GetPlaneConstraintNormal(), worldUp), 1.0f) && !IsWallRunning())
         {
             return false;
         }
-            
+
         // Apply jump impulse along world up defined by gravity direction
-            
+
         float verticalSpeed = Mathf.Max(Vector3.Dot(characterMovement.velocity, worldUp), jumpImpulse);
 
         characterMovement.velocity =
             Vector3.ProjectOnPlane(characterMovement.velocity, worldUp) + worldUp * verticalSpeed;
-            
+
         return true;
     }
 
@@ -219,11 +225,11 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
         }
     }
 
-    public void CheckAndTriggerBlockDisappearing(Collider collider)
+    public void CheckCollisionWithBlocks(Collider collider)
     {
-        if(collider.CompareTag("BasicBlock") && collider.TryGetComponent(out BlockDisappearing blockDisappearing))
+        if(collider.CompareTag(Tags.BasicBlock.ToString()) && collider.transform.parent.TryGetComponent(out PlayerCollidedEvents playerCollided))
         {
-            blockDisappearing.TryToStartDisappearingOnPlayerTouch();
+            playerCollided.OnPlayerCollided();
         }
     }
 
@@ -231,7 +237,6 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
     {
         bool foundGround = characterMovement.MovementSweepTest(GetPosition(), -GetUpVector(),
             m_WallMinDistanceFromGround, out CollisionResult _);
-        
 
         float angle = Vector3.Angle(wallNormal, GetForwardVector());
         return (angle >= m_WallRunMinAngle && angle <= m_WallRunMaxAngle)
@@ -258,7 +263,7 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
             return false;
 
         collisionResult = leftSweepTest ? leftCollisionResult : rightCollisionResult;
-        
+
         return true;
     }
 
@@ -274,13 +279,13 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
     {
         characterMovement.SetPlaneConstraint(PlaneConstraint.None, default);
 
-        if(GetMovementMode() == MovementMode.Falling && jumpInputPressed)
+        if(GetMovementMode() == MovementMode.Falling)
         {
             LaunchCharacter(m_WallNormal * m_WallJumpScalar);
             SetVelocity(GetVelocity());
         }
     }
-    
+
     private void WallRun(float deltaTime)
     {
         if(!DetectWall(out CollisionResult result))
@@ -289,6 +294,9 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
         }
 
         Vector3 wallForward = Vector3.Cross(result.surfaceNormal, Vector3.up);
+        
+        if(result.collider && result.collider.transform.parent.TryGetComponent(out BlockDisappearing blockDisappearing))
+            blockDisappearing.TryToStartDisappearingOnPlayerTouch(0.5f);
 
         if((GetForwardVector() - wallForward).magnitude > (GetForwardVector() - (wallForward * -1)).magnitude)
         {
@@ -296,7 +304,7 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
         }
 
         m_WallNormal = result.surfaceNormal;
-        
+
         SetVelocity(GetSpeed() * wallForward);
         RotateTowards(GetVelocity(), deltaTime);
     }

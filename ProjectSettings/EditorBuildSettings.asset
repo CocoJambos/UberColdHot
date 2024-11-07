@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_JAM/Scenes/MovementTestArea.unity
     guid: e707db56116fa544db2d0f0dcef5da8f
+  - enabled: 1
+    path: Assets/_JAM/Scenes/End.unity
+    guid: eff0a78c067bc9e42a5d75c4d2d4db95
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
