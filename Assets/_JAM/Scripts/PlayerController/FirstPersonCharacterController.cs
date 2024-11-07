@@ -1,6 +1,7 @@
 using ECM2;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public enum CustomMovementModes
 {
@@ -24,6 +25,10 @@ public class FirstPersonCharacterController : Character
 
     [Header("Custom Movement Modes")]
     [SerializeField] private SlidingMovement slidingMovement;
+
+    [SerializeField] private LayerMask m_WallLayers;
+
+    [SerializeField] private float m_FrontWallDetectionDistance = 2.2f;
     
     private float m_BaseMaxAcceleration;
     private bool m_WasJumpTriggered;
@@ -127,8 +132,10 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
 
         if(IsWallRunning())
         {
-            if(characterMovement.MovementSweepTest(GetPosition(), GetVelocity(), 0.1f,
-                   out CollisionResult _))
+            if(Vector3.Dot(m_WallNormal.normalized, GetVelocity().normalized) != 0.0)
+                return;
+            
+            if(characterMovement.Raycast(GetPosition(), GetVelocity().normalized, m_FrontWallDetectionDistance, m_WallLayers, out RaycastHit _))
             {
                 SetMovementMode(MovementMode.Falling);
             }
@@ -149,9 +156,7 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
     protected override void OnMovementModeChanged(MovementMode prevMovementMode, int prevCustomMode)
     {
         base.OnMovementModeChanged(prevMovementMode, prevCustomMode);
-        
-        Debug.LogError($"{prevMovementMode.ToString()}");
-        
+
         if(prevMovementMode == MovementMode.Custom)
         {
             switch((CustomMovementModes)prevCustomMode)
@@ -274,7 +279,7 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
     {
         characterMovement.SetPlaneConstraint(PlaneConstraint.None, default);
 
-        if(GetMovementMode() == MovementMode.Falling && jumpInputPressed)
+        if(GetMovementMode() == MovementMode.Falling)
         {
             LaunchCharacter(m_WallNormal * m_WallJumpScalar);
             SetVelocity(GetVelocity());
