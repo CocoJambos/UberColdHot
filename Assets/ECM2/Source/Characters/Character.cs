@@ -85,9 +85,7 @@ namespace ECM2
 
         #region EDITOR EXPOSED FIELDS
 
-        [Space(15f)]
-        [Tooltip("The Character's current rotation mode.")]
-        [SerializeField]
+        [Space(15f)] [Tooltip("The Character's current rotation mode.")] [SerializeField]
         private RotationMode _rotationMode;
 
         [Tooltip("Change in rotation per second (Deg / s).\n" +
@@ -95,9 +93,7 @@ namespace ECM2
         [SerializeField]
         private float _rotationRate;
 
-        [Space(15f)]
-        [Tooltip("The Character's default movement mode. Used at player startup.")]
-        [SerializeField]
+        [Space(15f)] [Tooltip("The Character's default movement mode. Used at player startup.")] [SerializeField]
         private MovementMode _startingMovementMode;
 
         [Space(15f)]
@@ -110,8 +106,7 @@ namespace ECM2
         [SerializeField]
         private float _minAnalogWalkSpeed;
 
-        [Tooltip("Max Acceleration (rate of change of velocity).")]
-        [SerializeField]
+        [Tooltip("Max Acceleration (rate of change of velocity).")] [SerializeField]
         private float _maxAcceleration;
 
         [Tooltip("Deceleration when walking and not applying acceleration.\n" +
@@ -125,21 +120,16 @@ namespace ECM2
         [SerializeField]
         private float _groundFriction;
 
-        [Space(15.0f)]
-        [Tooltip("Is the character able to crouch ?")]
-        [SerializeField]
+        [Space(15.0f)] [Tooltip("Is the character able to crouch ?")] [SerializeField]
         private bool _canEverCrouch;
 
-        [Tooltip("If canEverCrouch == true, determines the character height when crouched.")]
-        [SerializeField]
+        [Tooltip("If canEverCrouch == true, determines the character height when crouched.")] [SerializeField]
         private float _crouchedHeight;
 
-        [Tooltip("If canEverCrouch == true, determines the character height when un crouched.")]
-        [SerializeField]
+        [Tooltip("If canEverCrouch == true, determines the character height when un crouched.")] [SerializeField]
         private float _unCrouchedHeight;
 
-        [Tooltip("The maximum ground speed while crouched.")]
-        [SerializeField]
+        [Tooltip("The maximum ground speed while crouched.")] [SerializeField]
         private float _maxWalkSpeedCrouched;
 
         [Space(15f)]
@@ -147,8 +137,7 @@ namespace ECM2
         [SerializeField]
         private float _maxFallSpeed;
 
-        [Tooltip("Lateral deceleration when falling and not applying acceleration.")]
-        [SerializeField]
+        [Tooltip("Lateral deceleration when falling and not applying acceleration.")] [SerializeField]
         private float _brakingDecelerationFalling;
 
         [Tooltip("Friction to apply to lateral movement when falling. \n" +
@@ -162,68 +151,49 @@ namespace ECM2
         [SerializeField]
         private float _airControl;
 
-        [Space(15.0f)]
-        [Tooltip("Is the character able to jump ?")]
-        [SerializeField]
+        [Space(15.0f)] [Tooltip("Is the character able to jump ?")] [SerializeField]
         private bool _canEverJump;
 
-        [Tooltip("Can jump while crouching ?")]
-        [SerializeField]
+        [Tooltip("Can jump while crouching ?")] [SerializeField]
         private bool _canJumpWhileCrouching;
 
-        [Tooltip("The max number of jumps the Character can perform.")]
-        [SerializeField]
+        [Tooltip("The max number of jumps the Character can perform.")] [SerializeField]
         private int _jumpMaxCount;
 
-        [Tooltip("Initial velocity (instantaneous vertical velocity) when jumping.")]
-        [SerializeField]
+        [Tooltip("Initial velocity (instantaneous vertical velocity) when jumping.")] [SerializeField]
         private float _jumpImpulse;
 
-        [Tooltip("The maximum time (in seconds) to hold the jump. eg: Variable height jump.")]
-        [SerializeField]
+        [Tooltip("The maximum time (in seconds) to hold the jump. eg: Variable height jump.")] [SerializeField]
         private float _jumpMaxHoldTime;
 
-        [Tooltip("How early before hitting the ground you can trigger a jump (in seconds).")]
-        [SerializeField]
+        [Tooltip("How early before hitting the ground you can trigger a jump (in seconds).")] [SerializeField]
         private float _jumpMaxPreGroundedTime;
 
-        [Tooltip("How long after leaving the ground you can trigger a jump (in seconds).")]
-        [SerializeField]
+        [Tooltip("How long after leaving the ground you can trigger a jump (in seconds).")] [SerializeField]
         private float _jumpMaxPostGroundedTime;
 
-        [Space(15f)]
-        [Tooltip("The maximum flying speed.")]
-        [SerializeField]
+        [Space(15f)] [Tooltip("The maximum flying speed.")] [SerializeField]
         private float _maxFlySpeed;
 
-        [Tooltip("Deceleration when flying and not applying acceleration.")]
-        [SerializeField]
+        [Tooltip("Deceleration when flying and not applying acceleration.")] [SerializeField]
         private float _brakingDecelerationFlying;
 
-        [Tooltip("Friction to apply to movement when flying.")]
-        [SerializeField]
+        [Tooltip("Friction to apply to movement when flying.")] [SerializeField]
         private float _flyingFriction;
 
-        [Space(15f)]
-        [Tooltip("The maximum swimming speed.")]
-        [SerializeField]
+        [Space(15f)] [Tooltip("The maximum swimming speed.")] [SerializeField]
         private float _maxSwimSpeed;
 
-        [Tooltip("Deceleration when swimming and not applying acceleration.")]
-        [SerializeField]
+        [Tooltip("Deceleration when swimming and not applying acceleration.")] [SerializeField]
         private float _brakingDecelerationSwimming;
 
-        [Tooltip("Friction to apply to movement when swimming.")]
-        [SerializeField]
+        [Tooltip("Friction to apply to movement when swimming.")] [SerializeField]
         private float _swimmingFriction;
 
-        [Tooltip("Water buoyancy ratio. 1 = Neutral Buoyancy, 0 = No Buoyancy.")]
-        [SerializeField]
+        [Tooltip("Water buoyancy ratio. 1 = Neutral Buoyancy, 0 = No Buoyancy.")] [SerializeField]
         private float _buoyancy;
 
-        [Tooltip("This Character's gravity.")]
-        [Space(15f)]
-        [SerializeField]
+        [Tooltip("This Character's gravity.")] [Space(15f)] [SerializeField]
         private Vector3 _gravity;
 
         [Tooltip("The degree to which this object is affected by gravity.\n" +
@@ -231,9 +201,7 @@ namespace ECM2
         [SerializeField]
         private float _gravityScale;
 
-        [Space(15f)]
-        [Tooltip("Should animation determines the Character's movement ?")]
-        [SerializeField]
+        [Space(15f)] [Tooltip("Should animation determines the Character's movement ?")] [SerializeField]
         private bool _useRootMotion;
 
         [Space(15f)]
@@ -245,8 +213,7 @@ namespace ECM2
         [SerializeField]
         private bool _impartPlatformRotation;
 
-        [Tooltip("If true, impart the platform's velocity when jumping or falling off it.")]
-        [SerializeField]
+        [Tooltip("If true, impart the platform's velocity when jumping or falling off it.")] [SerializeField]
         private bool _impartPlatformVelocity;
 
         [Space(15f)]
@@ -254,12 +221,10 @@ namespace ECM2
         [SerializeField]
         private bool _enablePhysicsInteraction;
 
-        [Tooltip("Should apply push force to characters when walking into them ?")]
-        [SerializeField]
+        [Tooltip("Should apply push force to characters when walking into them ?")] [SerializeField]
         private bool _applyPushForceToCharacters;
 
-        [Tooltip("Should apply a downward force to rigidbodies we stand on ?")]
-        [SerializeField]
+        [Tooltip("Should apply a downward force to rigidbodies we stand on ?")] [SerializeField]
         private bool _applyStandingDownwardForce;
 
         [Space(15.0f)]
@@ -268,7 +233,8 @@ namespace ECM2
         [SerializeField]
         private float _mass;
 
-        [Tooltip("Force applied to rigidbodies when walking into them (due to mass and relative velocity) is scaled by this amount.")]
+        [Tooltip(
+            "Force applied to rigidbodies when walking into them (due to mass and relative velocity) is scaled by this amount.")]
         [SerializeField]
         private float _pushForceScale;
 
@@ -1031,22 +997,29 @@ namespace ECM2
         public delegate void PhysicsVolumeChangedEventHandler(PhysicsVolume newPhysicsVolume);
 
         public delegate void MovementModeChangedEventHandler(MovementMode prevMovementMode, int prevCustomMode);
+
         public delegate void CustomMovementModeUpdateEventHandler(float deltaTime);
 
         public delegate void CustomRotationModeUpdateEventHandler(float deltaTime);
 
         public delegate void BeforeSimulationUpdateEventHandler(float deltaTime);
+
         public delegate void AfterSimulationUpdateEventHandler(float deltaTime);
+
         public delegate void CharacterMovementUpdateEventHandler(float deltaTime);
 
         public delegate void CollidedEventHandler(ref CollisionResult collisionResult);
+
         public delegate void FoundGroundEventHandler(ref FindGroundResult foundGround);
+
         public delegate void LandedEventHandled(Vector3 landingVelocity);
 
         public delegate void CrouchedEventHandler();
+
         public delegate void UnCrouchedEventHandler();
 
         public delegate void JumpedEventHandler();
+
         public delegate void ReachedJumpApexEventHandler();
 
         /// <summary>
@@ -1789,7 +1762,8 @@ namespace ECM2
         protected virtual void RotateWithRootMotion()
         {
             if(useRootMotion && rootMotionController)
-                characterMovement.rotation = rootMotionController.ConsumeRootMotionRotation() * characterMovement.rotation;
+                characterMovement.rotation =
+                    rootMotionController.ConsumeRootMotionRotation() * characterMovement.rotation;
         }
 
         /// <summary>
@@ -2076,7 +2050,8 @@ namespace ECM2
             return _movementMode == MovementMode.Swimming;
         }
 
-        public bool IsSliding() => movementMode == MovementMode.Custom && customMovementMode == (int)ECustomMovementMode.Sliding;
+        public bool IsSliding() =>
+            movementMode == MovementMode.Custom && customMovementMode == 2;
 
         /// <summary>
         /// The maximum speed for current movement mode (accounting crouching state).
@@ -2101,7 +2076,7 @@ namespace ECM2
                 case MovementMode.Custom:
                     return customMovementMode switch
                     {
-                        (int)ECustomMovementMode.Sliding => maxWalkSpeed,
+                        2 => maxWalkSpeed,
                         _ => 0.0f,
                     };
 
@@ -2190,7 +2165,8 @@ namespace ECM2
         /// Returns modified input velocity.
         /// </summary>
 
-        public virtual Vector3 ApplyVelocityBraking(Vector3 velocity, float friction, float maxBrakingDeceleration, float deltaTime)
+        public virtual Vector3 ApplyVelocityBraking(Vector3 velocity, float friction, float maxBrakingDeceleration,
+            float deltaTime)
         {
             const float kMinTickTime = 0.000001f;
             if(velocity.isZero() || deltaTime < kMinTickTime)
@@ -2245,7 +2221,8 @@ namespace ECM2
         /// braking friction and acceleration or deceleration.
         /// </summary>
 
-        public virtual Vector3 CalcVelocity(Vector3 velocity, Vector3 desiredVelocity, float friction, bool isFluid, float deltaTime)
+        public virtual Vector3 CalcVelocity(Vector3 velocity, Vector3 desiredVelocity, float friction, bool isFluid,
+            float deltaTime)
         {
             const float kMinTickTime = 0.000001f;
             if(deltaTime < kMinTickTime)
@@ -2286,7 +2263,8 @@ namespace ECM2
 
                 // Don't allow braking to lower us below max speed if we started above it.
 
-                if(isVelocityOverMax && velocity.sqrMagnitude < actualMaxSpeed.square() && Vector3.Dot(inputAcceleration, oldVelocity) > 0.0f)
+                if(isVelocityOverMax && velocity.sqrMagnitude < actualMaxSpeed.square() &&
+                   Vector3.Dot(inputAcceleration, oldVelocity) > 0.0f)
                     velocity = oldVelocity.normalized * actualMaxSpeed;
             }
             else
@@ -2700,7 +2678,8 @@ namespace ECM2
 
                     bool jumpInputHeld = jumpInputPressed && jumpInputHoldTime < jumpMaxHoldTime;
 
-                    isJumpAllowed = jumpInputHeld && (jumpCurrentCount < jumpMaxCount || (_isJumping && jumpCurrentCount == jumpMaxCount));
+                    isJumpAllowed = jumpInputHeld && (jumpCurrentCount < jumpMaxCount ||
+                                                      (_isJumping && jumpCurrentCount == jumpMaxCount));
                 }
             }
 
@@ -2721,7 +2700,7 @@ namespace ECM2
             // Don't jump if we can't move up/down.
 
             if(characterMovement.isConstrainedToPlane &&
-                Mathf.Approximately(Vector3.Dot(characterMovement.GetPlaneConstraintNormal(), worldUp), 1.0f))
+               Mathf.Approximately(Vector3.Dot(characterMovement.GetPlaneConstraintNormal(), worldUp), 1.0f))
             {
                 return false;
             }
@@ -2845,7 +2824,8 @@ namespace ECM2
                     Vector3 rayDirection = -worldUp;
 
                     BoxCollider waterVolumeCollider = physicsVolume.boxCollider;
-                    depth = !waterVolumeCollider.Raycast(new Ray(rayOrigin, rayDirection), out RaycastHit hitInfo, height)
+                    depth = !waterVolumeCollider.Raycast(new Ray(rayOrigin, rayDirection), out RaycastHit hitInfo,
+                        height)
                         ? 1.0f
                         : 1.0f - Mathf.InverseLerp(0.0f, height, hitInfo.distance);
                 }
@@ -3391,11 +3371,5 @@ namespace ECM2
         }
 
         #endregion
-    }
-
-    public enum ECustomMovementMode
-    {
-        None,
-        Sliding,
     }
 }
