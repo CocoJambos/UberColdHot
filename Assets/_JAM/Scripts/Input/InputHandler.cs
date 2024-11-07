@@ -89,4 +89,9 @@ public class InputHandler : ScriptableObject, GameMappings.IGameplayActions
                 break;
         }
     }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        GameplayManager.Instance.ChangePauseState();
+    }
 }
