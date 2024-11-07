@@ -14,7 +14,6 @@ namespace JAM.AIModule.Drone
         protected IMovable _movementDriver;
         protected IAttackBehaviour _attackBehaviour;
         private AbstractStateMachine _droneStateMachine;
-
         protected virtual void Awake()
         {
             _droneStateMachine = new DroneStateMachine();
@@ -66,5 +65,7 @@ namespace JAM.AIModule.Drone
         {
             _droneStateMachine.SetState<AttackState>();
         }
+
+        public void KillDrone() => _droneDestroyer.DestroyDrone();
     }
 }

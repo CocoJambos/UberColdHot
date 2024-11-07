@@ -1,4 +1,5 @@
 using ECM2;
+using JAM.AIModule.Drone;
 using UnityEngine;
 
 public enum CustomMovementModes
@@ -28,7 +29,9 @@ public class FirstPersonCharacterController : Character
     [Header("Custom Movement Modes")]
     [SerializeField] private SlidingMovement slidingMovement;
 
-
+    [SerializeField] private LayerMask m_droneLayerMask;
+    [SerializeField] private float m_droneJumpBoostScalar = 10f;
+    
     private float m_BaseMaxAcceleration;
     private bool m_WasJumpTriggered;
     private bool m_WasWallRunTriggeredPastUpdate;
@@ -145,6 +148,13 @@ public class FirstPersonCharacterController : Character
         }
     }
 
+    protected override void OnCharacterMovementUpdated(float deltaTime)
+    {
+        base.OnCharacterMovementUpdated(deltaTime);
+        
+        TryBoostPlayerOnDrone();
+    }
+
     protected override void OnCollided(ref CollisionResult collisionResult)
     {
         base.OnCollided(ref collisionResult);
@@ -231,6 +241,27 @@ public class FirstPersonCharacterController : Character
         {
             playerCollided.OnPlayerCollided();
         }
+    }
+
+    private void TryBoostPlayerOnDrone()
+    {
+        if(!IsFalling())
+            return;
+        
+        QueryTriggerInteraction cachedTriggerInteraction = characterMovement.triggerInteraction;
+        characterMovement.triggerInteraction = QueryTriggerInteraction.Collide;
+        bool droneDetected = characterMovement.Raycast(characterMovement.GetFootPosition(),
+            Vector3.down, 3f, m_droneLayerMask, out RaycastHit raycastHit);
+        characterMovement.triggerInteraction = cachedTriggerInteraction;
+            
+        if(!droneDetected || !raycastHit.collider)
+            return;
+            
+        if(!raycastHit.collider.TryGetComponent(out DroneController droneController))
+            return;
+        
+        LaunchCharacter(Vector3.up * m_droneJumpBoostScalar);
+        droneController.KillDrone();
     }
 
     private bool CanWallRun(Vector3 wallNormal)
