@@ -62,6 +62,15 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slide"",
+                    ""type"": ""Button"",
+                    ""id"": ""aad13d6a-c85a-48bb-b27f-4b2b3e3709d6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -122,6 +131,17 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""15198b87-a680-4619-9fe1-915bf5083e98"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""c4e27e91-6b6c-4734-9838-c3781662fd20"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
@@ -133,8 +153,30 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""19acbb56-089d-4d4b-8d85-1e3d38018cae"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""c30ad665-0f50-4a4a-b7de-30b45060d46a"",
                     ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9309acf3-7b66-47d5-a02c-9940768f25ce"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -163,6 +205,39 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
                     ""action"": ""RestartCurrentLevel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22700c14-884c-4782-ab1e-7e60c46ebcad"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Slide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b98f974f-06f3-4ec8-9c57-b7312b86acba"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Slide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a151f7b2-7c6f-43f3-a315-6634ac848e51"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Slide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -175,6 +250,7 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
         m_Gameplay_MouseMovement = m_Gameplay.FindAction("MouseMovement", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_RestartCurrentLevel = m_Gameplay.FindAction("RestartCurrentLevel", throwIfNotFound: true);
+        m_Gameplay_Slide = m_Gameplay.FindAction("Slide", throwIfNotFound: true);
     }
 
     ~@GameMappings()
@@ -245,6 +321,7 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_MouseMovement;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_RestartCurrentLevel;
+    private readonly InputAction m_Gameplay_Slide;
     public struct GameplayActions
     {
         private @GameMappings m_Wrapper;
@@ -253,6 +330,7 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
         public InputAction @MouseMovement => m_Wrapper.m_Gameplay_MouseMovement;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @RestartCurrentLevel => m_Wrapper.m_Gameplay_RestartCurrentLevel;
+        public InputAction @Slide => m_Wrapper.m_Gameplay_Slide;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -274,6 +352,9 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
             @RestartCurrentLevel.started += instance.OnRestartCurrentLevel;
             @RestartCurrentLevel.performed += instance.OnRestartCurrentLevel;
             @RestartCurrentLevel.canceled += instance.OnRestartCurrentLevel;
+            @Slide.started += instance.OnSlide;
+            @Slide.performed += instance.OnSlide;
+            @Slide.canceled += instance.OnSlide;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -290,6 +371,9 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
             @RestartCurrentLevel.started -= instance.OnRestartCurrentLevel;
             @RestartCurrentLevel.performed -= instance.OnRestartCurrentLevel;
             @RestartCurrentLevel.canceled -= instance.OnRestartCurrentLevel;
+            @Slide.started -= instance.OnSlide;
+            @Slide.performed -= instance.OnSlide;
+            @Slide.canceled -= instance.OnSlide;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -313,5 +397,6 @@ public partial class @GameMappings: IInputActionCollection2, IDisposable
         void OnMouseMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnRestartCurrentLevel(InputAction.CallbackContext context);
+        void OnSlide(InputAction.CallbackContext context);
     }
 }

@@ -92,7 +92,7 @@ public class TweenController : MonoBehaviour
     public Vector3 TargetScale { get => targetScale; set => targetScale = value; }
     public Color TargetColor { get => targetColor; set => targetColor = value; }
 
-    private bool ShowLocal => !targetAsObject && !tweenType.HasFlag(TweenType.Scale) && !tweenType.HasFlag(TweenType.Color);
+    private bool ShowLocal => !tweenType.HasFlag(TweenType.Scale) && !tweenType.HasFlag(TweenType.Color);
     private bool ShowTransformToTween => !useThisObjectToTween && IsTransformBasedTween;
     private bool ShowColorComponentType => tweenType.HasFlag(TweenType.Color);
     private bool ShowTextMeshProColorComponentToTween => !useThisObjectToTween && tweenType.HasFlag(TweenType.Color) && colorComponentType.HasFlag(ColorComponentType.TextMeshPro);
@@ -111,7 +111,7 @@ public class TweenController : MonoBehaviour
     private bool ShowTargetScale => !targetAsObject && tweenType.HasFlag(TweenType.Scale);
     private bool ShowTargetColor => !targetAsObject && tweenType.HasFlag(TweenType.Color);
 
-    private bool IsLocalTween => local && !targetAsObject;
+    private bool IsLocalTween => local;
 
     private Transform TransformToTween => useThisObjectToTween ? transform : otherTransformToTween;
     private TMP_Text TextMeshProToTween => useThisObjectToTween ? GetComponent<TMP_Text>() : otherTextMeshProToTween;
@@ -121,9 +121,9 @@ public class TweenController : MonoBehaviour
 
     private Sequence currentSequence;
 
-    public void Play() => Play(null);
+    public Tween Play() => Play(null);
 
-    public void Play(Action onComplete)
+    public Tween Play(Action onComplete)
     {
         currentSequence?.Kill();
         currentSequence = DOTween.Sequence();
@@ -140,7 +140,7 @@ public class TweenController : MonoBehaviour
 
         if(tweenType.HasFlag(TweenType.Move))
         {
-            Vector3 target = targetAsObject ? TargetTransform.position : targetPosition;
+            Vector3 target = targetAsObject ? (IsLocalTween ? TargetTransform.localPosition : TargetTransform.position) : targetPosition;
             if(IsLocalTween)
             {
                 currentSequence.Insert(0f, TransformToTween.DOLocalMove(target, duration).SetEase(ease).OnComplete(onSequenceComplete));
@@ -155,7 +155,7 @@ public class TweenController : MonoBehaviour
         {
             if(useEulerForRotation)
             {
-                Vector3 target = targetAsObject ? TargetTransform.eulerAngles : targetEulerRotation;
+                Vector3 target = targetAsObject ? (IsLocalTween ? TargetTransform.localEulerAngles : TargetTransform.eulerAngles) : targetEulerRotation;
                 if(IsLocalTween)
                 {
                     currentSequence.Insert(0, TransformToTween.DOLocalRotate(target, duration).SetEase(ease).OnComplete(onSequenceComplete));
@@ -215,7 +215,7 @@ public class TweenController : MonoBehaviour
             }
         }
 
-        currentSequence.Play();
+        return currentSequence.Play();
     }
 
     [Button]

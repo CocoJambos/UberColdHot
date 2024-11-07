@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2868550345374009, guid: 8cc61488615da3147b855ed838c66342, type: 3}
       propertyPath: m_Name
-      value: Platfform4x2
+      value: Platform_Variant2
       objectReference: {fileID: 0}
     - target: {fileID: 445807514296885441, guid: 8cc61488615da3147b855ed838c66342, type: 3}
       propertyPath: m_Mesh
@@ -30,15 +30,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7856561095348719678, guid: 8cc61488615da3147b855ed838c66342, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4.4999886
       objectReference: {fileID: 0}
     - target: {fileID: 7856561095348719678, guid: 8cc61488615da3147b855ed838c66342, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 7.4999857
       objectReference: {fileID: 0}
     - target: {fileID: 7856561095348719678, guid: 8cc61488615da3147b855ed838c66342, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7856561095348719678, guid: 8cc61488615da3147b855ed838c66342, type: 3}
       propertyPath: m_LocalRotation.w

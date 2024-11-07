@@ -8,6 +8,8 @@ public class MovementContext
 
     public bool IsJumpPressedInput { get; private set; }
     public void SetJumpIsPressedInput(bool newInput) => IsJumpPressedInput = newInput;
+
+    public bool IsSlidePressedInput { get; set; }
 }
 
 public class MouseContext
@@ -72,6 +74,19 @@ public class InputHandler : ScriptableObject, GameMappings.IGameplayActions
         if(context.performed)
         {
             GameplayManager.Instance.RestartCurrentLevel();
+        }
+    }
+
+    public void OnSlide(InputAction.CallbackContext context)
+    {
+        switch(context.phase)
+        {
+            case InputActionPhase.Performed:
+                InputMovementContext.IsSlidePressedInput = true;
+                break;
+            case InputActionPhase.Canceled:
+                InputMovementContext.IsSlidePressedInput = false;
+                break;
         }
     }
 }
