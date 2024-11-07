@@ -15,7 +15,7 @@ namespace JAM.AIModule
             get => _currentHealth;
             private set
             {
-                _currentHealth = value;
+                _currentHealth = Mathf.Clamp(value, 0, _maxHealth);
                 OnHealthValueChanged?.Invoke(_currentHealth);
                 if (_currentHealth <= 0)
                 {
