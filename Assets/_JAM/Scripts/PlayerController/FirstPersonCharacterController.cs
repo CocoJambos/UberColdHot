@@ -7,6 +7,7 @@ public class FirstPersonCharacterController : Character
     [SerializeField] private InputHandler m_InputHandler;
     [SerializeField] private CameraController m_CameraController;
     [SerializeField] private AnimationCurve m_AccelerationCurve;
+    [SerializeField][Range(0f, 1f)] private float mouseSensitivity = 0.1f;
 
     [Header("Custom Movement Modes")]
     [SerializeField] private SlidingMovement slidingMovement;
@@ -52,6 +53,7 @@ public class FirstPersonCharacterController : Character
         SetMovementDirection(movementDirection);
 
         Vector2 mouseInput = m_InputHandler.InputMouseContext.MouseDeltaInput;
+        mouseInput *= mouseSensitivity;
         m_CameraController.AddCameraInput(-mouseInput.y);
         AddYawInput(mouseInput.x);
 
