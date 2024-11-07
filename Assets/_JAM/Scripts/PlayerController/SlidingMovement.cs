@@ -48,7 +48,7 @@ public class SlidingMovement : MonoBehaviour
         {
             OnSlidingStarted();
         }
-        else if(prevMovementMode == Character.MovementMode.Custom && prevCustomMode == (int)ECustomMovementMode.Sliding)
+        else if(prevMovementMode == Character.MovementMode.Custom && prevCustomMode == (int)CustomMovementModes.Sliding)
         {
             OnSlidingStopped();
         }

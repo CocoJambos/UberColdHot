@@ -639,6 +639,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  m_WallRunMinAngle: 45
+  m_WallRunMaxAngle: 110
+  m_WallRunMinDistance: 0.1
+  m_WallMinDistanceFromGround: 2
+  m_WallJumpScalar: 8
+  m_WallRunCooldown: 0.1
+  mouseSensitivity: 0.1
   slidingMovement: {fileID: 5827931617589698998}
 --- !u!114 &3060709911955681606
 MonoBehaviour:
