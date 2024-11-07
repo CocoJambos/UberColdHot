@@ -9,11 +9,14 @@ namespace JAM.AIModule
     public class ChaserAttackBehaviour : MonoBehaviour, IAttackBehaviour, ISeekAndLoseChaser
     {
         [SerializeField] private Transform _droneBodyTransform;
+        
         [SerializeField] private float _targetChasedMinDistance;
         [SerializeField] private float _targetLooseMinDistance;
         [SerializeField] private Vector2 _chasingFlyHeightRange;
         [SerializeField] private float _attackDelay = 2f;
+        [SerializeField] private int _damagePerHit = 10;
         
+        private PlayerHealthManager _playerHealthManager;
         private TimeManager _timeManager;
         private Transform _target;
         private Coroutine _attackRoutine;
@@ -37,6 +40,7 @@ namespace JAM.AIModule
         private void Start()
         {
             _timeManager = TimeManager.Instance;
+            _playerHealthManager = PlayerHealthManager.Instance;
             _chasingFlyHeight = CalculateFlyingHeight();
             _target = PlayerTransform.Get();
         }
@@ -85,8 +89,8 @@ namespace JAM.AIModule
         {
             while(_isAttacking)
             {
-                yield return StartCoroutine(AttackWaiter());
                 AttakTargetRoutine();
+                yield return StartCoroutine(AttackWaiter());
             }
         }
 
@@ -102,6 +106,7 @@ namespace JAM.AIModule
 
         private void AttakTargetRoutine()
         {
+            _playerHealthManager.ApplyDamage(_damagePerHit);
             Debug.Log("Paw! Attack Player");
         }
 

@@ -29,19 +29,16 @@ namespace JAM.AIModule.Drone
 
         protected virtual void Update()
         {
-            Debug.Log("Update");
             _attackBehaviour.UpdateBehaviour();
         }
 
         protected virtual void FixedUpdate()
         {
-            Debug.Log("FixedUpdate");
             _droneStateMachine.UpdateCurrentState(Time.fixedDeltaTime);
         }
 
         protected virtual void OnDestroy()
         {
-            Debug.Log("OnDestroy Base");
             UnsubscribeEvents();
         }
 

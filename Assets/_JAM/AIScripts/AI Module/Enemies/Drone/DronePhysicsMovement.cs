@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace JAM.AIModule.Drone
 {
@@ -7,6 +8,7 @@ namespace JAM.AIModule.Drone
         [SerializeField] private ObstacleAvoider _obstacleAvoider;
         [SerializeField] private float _speed;
         [SerializeField] private float _rotationSpeed;
+        [SerializeField] private Vector2 _startFinishDragValuePair;
         
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Transform _bodyObject;
@@ -24,6 +26,16 @@ namespace JAM.AIModule.Drone
         public void InjectAttackBehaviour(IAttackBehaviour attackBehaviour)
         {
             _attackBehaviour = attackBehaviour;
+        }
+
+        public void StartMovement()
+        {
+            _rigidbody.linearDamping = _startFinishDragValuePair.x;
+        }
+
+        public void StopMovement()
+        {
+            _rigidbody.linearDamping = _startFinishDragValuePair.y;
         }
 
         public void UpdateMovement(float deltaTime)

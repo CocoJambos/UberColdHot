@@ -14,6 +14,7 @@ namespace JAM.AIModule.Drone
 
         public void EnterState()
         {
+            _movementDriver.StartMovement();
         }
 
         public void UpdateState(float deltaTime)
@@ -23,6 +24,7 @@ namespace JAM.AIModule.Drone
 
         public void ExitState()
         {
+            _movementDriver.StopMovement();
         }
     }
 }

@@ -16,6 +16,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4152794466646180123, guid: ac3302aad2f323a42af8cd549722fc28, type: 3}
+      propertyPath: _startFinishDragValuePair.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4152794466646180123, guid: ac3302aad2f323a42af8cd549722fc28, type: 3}
+      propertyPath: _startFinishDragValuePair.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247497908821031233, guid: ac3302aad2f323a42af8cd549722fc28, type: 3}
+      propertyPath: _damagePerExplosion
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247497908821031233, guid: ac3302aad2f323a42af8cd549722fc28, type: 3}
+      propertyPath: _droneHealthManager
+      value: 
+      objectReference: {fileID: 2622098961631757816}
     - target: {fileID: 4247497908821031233, guid: ac3302aad2f323a42af8cd549722fc28, type: 3}
       propertyPath: _targetChasedMinDistance
       value: 4
@@ -26,11 +42,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7380825228271183403, guid: ac3302aad2f323a42af8cd549722fc28, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.84
+      value: 26.8
       objectReference: {fileID: 0}
     - target: {fileID: 7380825228271183403, guid: ac3302aad2f323a42af8cd549722fc28, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18.15
+      value: 49.77
       objectReference: {fileID: 0}
     - target: {fileID: 7380825228271183403, guid: ac3302aad2f323a42af8cd549722fc28, type: 3}
       propertyPath: m_LocalRotation.w

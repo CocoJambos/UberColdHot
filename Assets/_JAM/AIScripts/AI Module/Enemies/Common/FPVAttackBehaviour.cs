@@ -1,13 +1,16 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace JAM.AIModule
 {
     public class FpvAttackBehaviour : MonoBehaviour, IAttackBehaviour, ISeekChaser
     {
-        [SerializeField] private HealthManager _healthManager;
+        [SerializeField] private HealthManager _droneHealthManager;
         [SerializeField] private float _targetChasedMinDistance;
+        [SerializeField] private int _damagePerExplosion = 25;
         
+        private PlayerHealthManager _playerHealthManager;
         private Transform _target;
         private bool _isTargetChased;
 
@@ -27,6 +30,7 @@ namespace JAM.AIModule
         private void Start()
         {
             _target = PlayerTransform.Get();
+            _playerHealthManager = PlayerHealthManager.Instance;
         }
 
         public void UpdateBehaviour()
@@ -36,8 +40,8 @@ namespace JAM.AIModule
         
         public void AttackTarget()
         {
-            Debug.Log("BAM. Self Destroy");
-            _healthManager.Kill();
+            _playerHealthManager.ApplyDamage(_damagePerExplosion);
+            _droneHealthManager.Kill();
         }
 
         public void StopAttackTarget()
@@ -46,7 +50,6 @@ namespace JAM.AIModule
         }
         
         public Vector3 GetAttackPosition() => _target.position;
-        
         
         public void CheckChasingStatus()
         {

@@ -13,6 +13,7 @@ public class BlockDisappearing : MonoBehaviour
 
     public void TryToStartDisappearingOnPlayerTouch()
     {
+        return;
         if(isAppearingOrDisappearing)
             return;
 

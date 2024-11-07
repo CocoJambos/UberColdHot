@@ -10,20 +10,31 @@ namespace JAM.AIModule
         
         private int _currentHealth;
 
-        public Action OnMinimalHealthReached;
-
-        private void Awake()
+        public int CurrentHealth
         {
-            _currentHealth = _maxHealth;
+            get => _currentHealth;
+            private set
+            {
+                _currentHealth = value;
+                OnHealthValueChanged?.Invoke(_currentHealth);
+                if (_currentHealth <= 0)
+                {
+                    OnMinimalHealthReached?.Invoke();
+                }
+            }
+        }
+
+        public event Action OnMinimalHealthReached;
+        public event Action<int> OnHealthValueChanged;
+
+        private void Start()
+        {
+            CurrentHealth = _maxHealth;
         }
 
         public void TakeDamage(int damage)
         {
-            _currentHealth -= damage;
-            if (_currentHealth <= 0)
-            {
-                OnMinimalHealthReached?.Invoke();
-            }
+            CurrentHealth -= damage;
         }
 
         public void Kill()
