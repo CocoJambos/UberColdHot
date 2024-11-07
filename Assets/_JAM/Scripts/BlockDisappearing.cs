@@ -7,6 +7,8 @@ public class BlockDisappearing : MonoBehaviour
     [SerializeField]
     private TweenController disappearingTween;
     [SerializeField]
+    private float disappearingDelay = 1f;
+    [SerializeField]
     [FormerlySerializedAs("appear")]
     private bool appearAfterDisappearing = true;
     [SerializeField]
@@ -18,12 +20,15 @@ public class BlockDisappearing : MonoBehaviour
 
     private bool isAppearingOrDisappearing = false;
 
-    public void TryToStartDisappearingOnPlayerTouch()
+    public void TryToStartDisappearingOnPlayerTouch() => TryToStartDisappearingOnPlayerTouch(0f);
+
+    public void TryToStartDisappearingOnPlayerTouch(float additionalDisappearingDelay)
     {
         if(isAppearingOrDisappearing)
             return;
 
-        StartDisappearing();
+        Invoke(nameof(StartDisappearing), disappearingDelay + additionalDisappearingDelay);
+
         if(appearAfterDisappearing)
         {
             Invoke(nameof(StartAppearing), appearingDelay);
