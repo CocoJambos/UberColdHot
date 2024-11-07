@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/_JAM/Prefabs/Drones.meta
-guid: 59272212cac7c2b439d22d5393c19761
-========
-guid: 583906af920834548885bab6dcf212bd
->>>>>>>> main:Assets/_JAM/Prefab_Variant/Level design and art assets.meta
+guid: 5e5568f26f7e2af4c8277f2770e3057b
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

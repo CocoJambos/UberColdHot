@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/_JAM/Scripts/TimeManager.meta
-guid: 05fbf0cd3b48b2e4897a5ebec52feb73
-========
-guid: ce8ce5ef2549ab04095eae2752319034
->>>>>>>> main:Assets/_JAM/Scenes/Level_MainScene.meta
+guid: 82af939275750d2479c95d6f124a380c
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
