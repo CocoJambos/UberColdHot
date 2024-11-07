@@ -3,16 +3,15 @@ using UnityEngine;
 
 namespace JAM.AIModule
 {
-    public class FpvAttackBehaviour : MonoBehaviour, IAttackBehaviour, IChaser
+    public class FpvAttackBehaviour : MonoBehaviour, IAttackBehaviour, ISeekChaser
     {
-        [SerializeField] private float _targetChasedMinDistance;
         [SerializeField] private HealthManager _healthManager;
+        [SerializeField] private float _targetChasedMinDistance;
         
         private Transform _target;
         private bool _isTargetChased;
 
         public Action OnTargetChasedEvent { get; set; }
-        public Action OnTargetLostEvent { get; set; }
         
         private bool IsTargetChased
         {
@@ -32,7 +31,7 @@ namespace JAM.AIModule
 
         public void UpdateBehaviour()
         {
-            CheckChaseCondition();
+            CheckChasingStatus();
         }
         
         public void AttackTarget()
@@ -46,23 +45,43 @@ namespace JAM.AIModule
             // Nothing happens because we already dead ha-ha
         }
         
-        public Vector3 GetTargetPosition()
-        {
-            return _target.position;
-        }
+        public Vector3 GetAttackPosition() => _target.position;
         
-        public void CheckChaseCondition()
+        
+        public void CheckChasingStatus()
         {
-            float distance = CalculateDistanceToTarget();
+            float distance = CalculateFlatDistanceToTarget();
             if(distance <= _targetChasedMinDistance)
                 IsTargetChased = true;
         }
         
-        public float CalculateDistanceToTarget()
+        public float CalculateFlatDistanceToTarget()
         {
             Debug.DrawLine(transform.position, _target.position,Color.cyan,Time.deltaTime);
             var distance = Vector3.Distance(transform.position, _target.position);
             return distance;
         }
+        
+        #if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            if(!Application.isPlaying) return;
+            float distance = CalculateFlatDistanceToTarget();
+            
+            GUIStyle style = new GUIStyle();
+            style.normal.textColor = Color.white;
+            style.fontSize = 14;
+        
+            Vector3 screenPosition = Camera.current.WorldToScreenPoint(transform.position);
+            if (screenPosition.z > 0) // Only draw if the object is in front of the camera
+            {
+                Vector2 labelPosition = new Vector2(screenPosition.x, Screen.height - screenPosition.y);
+                UnityEditor.Handles.BeginGUI();
+                GUI.Label(new Rect(labelPosition, new Vector2(100, 20)), $"Distance: {distance:F2}", style);
+                UnityEditor.Handles.EndGUI();
+            }
+        }
+        
+        #endif
     }
 }

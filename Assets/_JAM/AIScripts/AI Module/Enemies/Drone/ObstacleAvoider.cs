@@ -14,7 +14,7 @@ namespace JAM.AIModule.Drone
         public bool IsObstacleInPath(Vector3 direction)
         {
             RaycastHit hit;
-            if (Physics.Raycast(_bodyTransform.position, direction, out hit, 10f, _collisionMask))
+            if (Physics.Raycast(_bodyTransform.position, direction, out hit, 3f, _collisionMask))
             {
                 bool isObstacle = hit.collider != null && !hit.collider.isTrigger;
                 return isObstacle;

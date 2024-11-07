@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7380825228271183403}
-  - component: {fileID: 869443609989471996}
   - component: {fileID: 5669637344946818841}
   - component: {fileID: 2513831253446365510}
-  m_Layer: 0
+  - component: {fileID: 1580905509419871684}
+  m_Layer: 7
   m_Name: Drone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,24 +36,6 @@ Transform:
   - {fileID: 7597703115763722217}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &869443609989471996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2162092517329564518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3522f67b769bbdb418eb2c78bd2fe110, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  droneType: 0
-  _healthManager: {fileID: 4318500134689959106}
-  _chaserAttackBehaviour: {fileID: 6292110119614442142}
-  _fpvAttackBehaviour: {fileID: 4247497908821031233}
-  _dronePhysicsMovement: {fileID: 4152794466646180123}
-  _droneDestroyer: {fileID: 6870758091137892231}
 --- !u!54 &5669637344946818841
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -62,8 +44,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2162092517329564518}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 1
+  m_Mass: 2
+  m_Drag: 1.5
   m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -78,7 +60,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!135 &2513831253446365510
@@ -96,12 +78,28 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1580905509419871684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2162092517329564518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7651168bec1fad54f9e931ce41b7a8ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthManager: {fileID: 4318500134689959106}
+  _dronePhysicsMovement: {fileID: 4152794466646180123}
+  _droneDestroyer: {fileID: 6870758091137892231}
+  _chaserAttackBehaviour: {fileID: 6292110119614442142}
 --- !u!1 &3061292877385397722
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,10 +145,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52a49830c9927847b23235c5de3f077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _droneBodyTransform: {fileID: 7380825228271183403}
   _targetChasedMinDistance: 1
   _targetLooseMinDistance: 4
+  _chasingFlyHeightRange: {x: 10, y: 13}
   _attackDelay: 2
-  _droneBodyTransform: {fileID: 7380825228271183403}
 --- !u!114 &4247497908821031233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,8 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd188e554e13b0946b439823e83d3bfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetChasedMinDistance: 2
   _healthManager: {fileID: 4318500134689959106}
+  _targetChasedMinDistance: 2
 --- !u!1 &4513547992977428695
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,36 +210,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _obstacleAvoider: {fileID: 5131656346073636803}
-  _speed: 0.1
-  _droneHeight: 10
-  _dragCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1.0024414
-      value: 4.137085
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  _speed: 0.5
+  _rotationSpeed: 5
   _rigidbody: {fileID: 5669637344946818841}
   _bodyObject: {fileID: 7380825228271183403}
-  originalDrag: 1
-  finishDrag: 2
 --- !u!114 &5131656346073636803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +229,7 @@ MonoBehaviour:
   _bodyTransform: {fileID: 7380825228271183403}
   _collisionMask:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 129
 --- !u!1 &5317543987217580873
 GameObject:
   m_ObjectHideFlags: 0

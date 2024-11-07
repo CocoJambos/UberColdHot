@@ -2,22 +2,24 @@ using System;
 using System.Collections;
 using UnityEngine;
 using JAM.AIModule.Drone.ExtensionMethods;
+using Random = UnityEngine.Random;
 
 namespace JAM.AIModule
 {
-    public class ChaserAttackBehaviour : MonoBehaviour, IAttackBehaviour, IChaser
+    public class ChaserAttackBehaviour : MonoBehaviour, IAttackBehaviour, ISeekAndLoseChaser
     {
+        [SerializeField] private Transform _droneBodyTransform;
         [SerializeField] private float _targetChasedMinDistance;
         [SerializeField] private float _targetLooseMinDistance;
-        
+        [SerializeField] private Vector2 _chasingFlyHeightRange;
         [SerializeField] private float _attackDelay = 2f;
-        [SerializeField] private Transform _droneBodyTransform;
         
+        private TimeManager _timeManager;
         private Transform _target;
         private Coroutine _attackRoutine;
         private bool _isAttacking;
         private bool _isTargetChased;
-        private WaitForSeconds _waitForSecondsBetweenAttacks;
+        private float _chasingFlyHeight;
         
         private bool IsTargetChased
         {
@@ -34,14 +36,12 @@ namespace JAM.AIModule
         
         private void Start()
         {
+            _timeManager = TimeManager.Instance;
+            _chasingFlyHeight = CalculateFlyingHeight();
             _target = PlayerTransform.Get();
-            _waitForSecondsBetweenAttacks = new WaitForSeconds(_attackDelay);
         }
 
-        public void UpdateBehaviour()
-        {
-            CheckChaseCondition();
-        }
+        public void UpdateBehaviour() => CheckChasingStatus();
 
         public void AttackTarget()
         {
@@ -55,19 +55,48 @@ namespace JAM.AIModule
             StopCoroutine(_attackRoutine);
         }
 
-        public Vector3 GetTargetPosition()
+        public Vector3 GetAttackPosition()
         {
             Vector3 playerPos = _target.position;
-            playerPos.y = _droneBodyTransform.position.y;
+            playerPos.y = _chasingFlyHeight;
             return playerPos;
         }
-
+        
+        public void CheckChasingStatus()
+        {
+            float distance = CalculateFlatDistanceToTarget();
+            if(distance <= _targetChasedMinDistance)
+                IsTargetChased = true;
+            else if(distance >= _targetLooseMinDistance)
+                IsTargetChased = false;
+        }
+        
+        /// <summary>
+        /// Calculates the distance ignoring the height value of drone
+        /// </summary>
+        /// <returns></returns>
+        public float CalculateFlatDistanceToTarget()
+        {
+            var distance = Vector3.Distance(transform.position.FlattenVector(), _target.position.FlattenVector());
+            return distance;
+        }
+        
         private IEnumerator AttackCycleRoutine()
         {
             while(_isAttacking)
             {
+                yield return StartCoroutine(AttackWaiter());
                 AttakTargetRoutine();
-                yield return _waitForSecondsBetweenAttacks;
+            }
+        }
+
+        private IEnumerator AttackWaiter()
+        {
+            float delay = _attackDelay / _timeManager.TimeScale;
+            while(delay > 0f)
+            {
+                delay -= Time.deltaTime;
+                yield return null;
             }
         }
 
@@ -75,21 +104,7 @@ namespace JAM.AIModule
         {
             Debug.Log("Paw! Attack Player");
         }
-        
-        public void CheckChaseCondition()
-        {
-            float distance = CalculateDistanceToTarget();
-            if(distance <= _targetChasedMinDistance)
-                IsTargetChased = true;
-            else if(distance >= _targetLooseMinDistance)
-                IsTargetChased = false;
-        }
-        
-        public float CalculateDistanceToTarget()
-        {
-            Debug.DrawLine(transform.position, _target.position,Color.cyan,Time.deltaTime);
-            var distance = Vector3.Distance(transform.position.FlattenVector(), _target.position.FlattenVector());
-            return distance;
-        }
+
+        private float CalculateFlyingHeight() => Random.Range(_chasingFlyHeightRange.x, _chasingFlyHeightRange.y);
     }
 }
