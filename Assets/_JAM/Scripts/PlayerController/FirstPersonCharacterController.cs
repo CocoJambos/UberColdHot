@@ -31,6 +31,7 @@ public class FirstPersonCharacterController : Character
     private bool m_IsWallJumpTriggered;
     private Vector3 m_WallNormal;
     private float m_WallRunUpdateTime;
+    private bool m_PastUpdateJumpState;
 
     private bool CanSlide => IsWalking();
 
@@ -51,26 +52,6 @@ public class FirstPersonCharacterController : Character
 
     private void Update()
     {
-        if(Keyboard.current.leftBracketKey.isPressed)
-        {
-            groundFriction -= 0.1f;
-        }
-
-        if(Keyboard.current.rightBracketKey.isPressed)
-        {
-            groundFriction += 0.1f;
-        }
-
-        if(Keyboard.current.oKey.isPressed)
-        {
-            brakingDecelerationWalking -= 0.1f;
-        }
-
-        if(Keyboard.current.pKey.isPressed)
-        {
-            brakingDecelerationWalking += 0.1f;
-        }
-
         Vector2 movementInput = m_InputHandler.InputMovementContext.MovementInput;
         Vector3 movementDirection = new(movementInput.x, 0, movementInput.y);
         movementDirection = m_CameraController.RelativeToCamera(movementDirection);
@@ -86,6 +67,7 @@ public class FirstPersonCharacterController : Character
             AddYawInput(mouseInput.x);
 
         bool isJumpPressed = m_InputHandler.InputMovementContext.IsJumpPressedInput;
+
         if(isJumpPressed && CanJump())
         {
             if(!m_WasJumpTriggered)
@@ -99,6 +81,11 @@ public class FirstPersonCharacterController : Character
             StopJumping();
         }
 
+        if(isJumpPressed && IsWallRunning() && !m_PastUpdateJumpState)
+        {
+            Jump();
+        }
+
         bool isSlidePressed = m_InputHandler.InputMovementContext.IsSlidePressedInput;
         if(isSlidePressed && CanSlide && !IsSliding())
         {
@@ -108,6 +95,8 @@ public class FirstPersonCharacterController : Character
         {
             SetMovementMode(MovementMode.Walking);
         }
+
+        m_PastUpdateJumpState = isJumpPressed;
     }
 
 protected override void OnBeforeSimulationUpdate(float deltaTime)
@@ -278,7 +267,6 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
     private void PreWallRun()
     {
         characterMovement.SetPlaneConstraint(PlaneConstraint.ConstrainYAxis, default);
-        m_WasJumpTriggered = false;
         m_WallRunUpdateTime = m_WallRunCooldown;
     }
 
@@ -310,6 +298,7 @@ protected override void OnBeforeSimulationUpdate(float deltaTime)
         m_WallNormal = result.surfaceNormal;
         
         SetVelocity(GetSpeed() * wallForward);
+        RotateTowards(GetVelocity(), deltaTime);
     }
 
     private bool IsWallRunning()
