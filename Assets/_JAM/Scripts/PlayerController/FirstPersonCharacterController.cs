@@ -294,6 +294,9 @@ public class FirstPersonCharacterController : Character
         }
 
         Vector3 wallForward = Vector3.Cross(result.surfaceNormal, Vector3.up);
+        
+        if(result.collider && result.collider.transform.parent.TryGetComponent(out BlockDisappearing blockDisappearing))
+            blockDisappearing.TryToStartDisappearingOnPlayerTouch(0.5f);
 
         if((GetForwardVector() - wallForward).magnitude > (GetForwardVector() - (wallForward * -1)).magnitude)
         {
