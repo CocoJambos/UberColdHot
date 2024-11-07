@@ -577,7 +577,7 @@ MonoBehaviour:
   _minAnalogWalkSpeed: 0
   _maxAcceleration: 15
   _brakingDecelerationWalking: 1
-  _groundFriction: 1
+  _groundFriction: 6
   _canEverCrouch: 1
   _crouchedHeight: 0.5
   _unCrouchedHeight: 2
@@ -670,8 +670,6 @@ MonoBehaviour:
   character: {fileID: 6846993595182645759}
   playerHeightWhileSliding: 0.5
   slidingFriction: 0.2
-  maxSlidingSideSpeed: 5
-  slidingSideSpeedMultiplier: 0.05
   cameraController: {fileID: 3060709911955681606}
   moveCameraToSlidingPositionAnim: {fileID: 7536902025561169712}
   moveCameraToStandingPositionAnim: {fileID: 6909275998798233010}

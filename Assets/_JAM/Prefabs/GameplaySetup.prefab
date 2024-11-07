@@ -250,10 +250,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: NewPlayer
       objectReference: {fileID: 0}
-    - target: {fileID: 6846993595182645759, guid: fee139b193bca4fdfa4294b72d881805, type: 3}
-      propertyPath: _groundFriction
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 8850428217575858671, guid: fee139b193bca4fdfa4294b72d881805, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
