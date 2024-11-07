@@ -6,17 +6,26 @@ namespace JAM.AIModule
 {
     public interface IAttackBehaviour
     {
-        public Action OnTargetChasedEvent { get; set; }
-        public Action OnTargetLostEvent{ get; set; }
         void UpdateBehaviour();
         void AttackTarget();
         void StopAttackTarget();
-        Vector3 GetTargetPosition();
+        Vector3 GetAttackPosition();
     }
 
-    public interface IChaser
+    public interface IPursuer 
     {
-        void CheckChaseCondition();
-        float CalculateDistanceToTarget();
+        void CheckChasingStatus();
+        float CalculateFlatDistanceToTarget();
+    }
+
+    public interface ISeekAndLoseChaser : IPursuer
+    {
+        public Action OnTargetChasedEvent { get; set; }
+        public Action OnTargetLostEvent{ get; set; }
+    }
+    
+    public interface ISeekChaser  : IPursuer
+    {
+        public Action OnTargetChasedEvent { get; set; }
     }
 }

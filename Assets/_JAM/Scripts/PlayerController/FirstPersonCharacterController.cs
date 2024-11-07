@@ -1,5 +1,4 @@
 using ECM2;
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +6,7 @@ public enum CustomMovementModes
 {
     None,
     WallRun,
+    Sliding,
 }
 
 public class FirstPersonCharacterController : Character
@@ -20,14 +20,20 @@ public class FirstPersonCharacterController : Character
     [SerializeField] private float m_WallMinDistanceFromGround = 0.4f;
     [SerializeField] private float m_WallJumpScalar = 3f;
     [SerializeField] private float m_WallRunCooldown = 0.1f;
+    [SerializeField][Range(0f, 1f)] private float mouseSensitivity = 0.1f;
 
+    [Header("Custom Movement Modes")]
+    [SerializeField] private SlidingMovement slidingMovement;
+    
     private float m_BaseMaxAcceleration;
     private bool m_WasJumpTriggered;
     private bool m_WasWallRunTriggeredPastUpdate;
     private bool m_IsWallJumpTriggered;
     private Vector3 m_WallNormal;
     private float m_WallRunUpdateTime;
-    
+
+    private bool CanSlide => IsWalking();
+
     protected override void Start()
     {
         base.Start();
@@ -64,22 +70,22 @@ public class FirstPersonCharacterController : Character
         {
             brakingDecelerationWalking += 0.1f;
         }
-        
+
         Vector2 movementInput = m_InputHandler.InputMovementContext.MovementInput;
         Vector3 movementDirection = new(movementInput.x, 0, movementInput.y);
         movementDirection = m_CameraController.RelativeToCamera(movementDirection);
-        
+
         if(!IsWallRunning())
             SetMovementDirection(movementDirection);
         
         Vector2 mouseInput = m_InputHandler.InputMouseContext.MouseDeltaInput;
+        mouseInput *= mouseSensitivity;
         m_CameraController.AddCameraInput(-mouseInput.y);
         
         if(!IsWallRunning())
             AddYawInput(mouseInput.x);
 
         bool isJumpPressed = m_InputHandler.InputMovementContext.IsJumpPressedInput;
-
         if(isJumpPressed && CanJump())
         {
             if(!m_WasJumpTriggered)
@@ -92,9 +98,19 @@ public class FirstPersonCharacterController : Character
         {
             StopJumping();
         }
+
+        bool isSlidePressed = m_InputHandler.InputMovementContext.IsSlidePressedInput;
+        if(isSlidePressed && CanSlide && !IsSliding())
+        {
+            SetMovementMode(MovementMode.Custom, (int)CustomMovementModes.Sliding);
+        }
+        else if(!isSlidePressed && IsSliding())
+        {
+            SetMovementMode(MovementMode.Walking);
+        }
     }
 
-    protected override void OnBeforeSimulationUpdate(float deltaTime)
+protected override void OnBeforeSimulationUpdate(float deltaTime)
     { 
         base.OnBeforeSimulationUpdate(deltaTime);
 
@@ -312,3 +328,4 @@ public class FirstPersonCharacterController : Character
         Gizmos.DrawLine(GetPosition(), GetPosition() + GetMovementDirection() * 4);
     }
 }
+

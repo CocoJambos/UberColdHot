@@ -5,43 +5,21 @@ using UnityEngine;
 
 namespace JAM.AIModule.Drone
 {
-    public class DroneController : MonoBehaviour
+    public abstract class DroneController : MonoBehaviour
     {
-        //TEMP
-        public enum DroneType
-        {
-            Chaser,
-            Kamikaze
-        }
-        public DroneType droneType;
-        
         [SerializeField] private HealthManager _healthManager;
-        [SerializeField] private ChaserAttackBehaviour _chaserAttackBehaviour;
-        [SerializeField] private FpvAttackBehaviour _fpvAttackBehaviour;
-        [SerializeField] private DronePhysicsMovement _dronePhysicsMovement;
+        [SerializeField] protected DronePhysicsMovement _dronePhysicsMovement;
         [SerializeField] private DroneDestroyer _droneDestroyer;
         
-        private IMovable _movementDriver;
-        private IAttackBehaviour _attackBehaviour;
+        protected IMovable _movementDriver;
+        protected IAttackBehaviour _attackBehaviour;
         private AbstractStateMachine _droneStateMachine;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _droneStateMachine = new DroneStateMachine();
-
-            _movementDriver = _dronePhysicsMovement;
-
-            // TEMP
-            if(droneType == DroneType.Chaser)
-            {
-                _attackBehaviour = _chaserAttackBehaviour;
-            }
-            else if(droneType == DroneType.Kamikaze)
-            {
-                _attackBehaviour = _fpvAttackBehaviour;
-            }
+            
             _movementDriver.InjectAttackBehaviour(_attackBehaviour);
-
             _droneStateMachine.RegisterState(new PlayerChaseState(_movementDriver));
             _droneStateMachine.RegisterState(new AttackState(_attackBehaviour));
             _droneStateMachine.RegisterState(new DeadState(_droneDestroyer));
@@ -49,33 +27,32 @@ namespace JAM.AIModule.Drone
             SubscribeEvents();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
+            Debug.Log("Update");
             _attackBehaviour.UpdateBehaviour();
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
+            Debug.Log("FixedUpdate");
             _droneStateMachine.UpdateCurrentState(Time.fixedDeltaTime);
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
+            Debug.Log("OnDestroy Base");
             UnsubscribeEvents();
         }
 
-        private void SubscribeEvents()
+        protected virtual void SubscribeEvents()
         {
             _healthManager.OnMinimalHealthReached += OnMinimalHealthReachedHandler;
-            _attackBehaviour.OnTargetLostEvent += OnTargetLostEventHandler;
-            _attackBehaviour.OnTargetChasedEvent += OnTargetChasedEventHandler;
         }
 
-        private void UnsubscribeEvents()
+        protected virtual void UnsubscribeEvents()
         {
             _healthManager.OnMinimalHealthReached -= OnMinimalHealthReachedHandler;
-            _attackBehaviour.OnTargetLostEvent -= OnTargetLostEventHandler;
-            _attackBehaviour.OnTargetChasedEvent -= OnTargetChasedEventHandler;
         }
 
         private void OnMinimalHealthReachedHandler()
@@ -83,12 +60,12 @@ namespace JAM.AIModule.Drone
             _droneStateMachine.SetState<DeadState>();
         }
         
-        private void OnTargetLostEventHandler()
+        protected void OnTargetLostEventHandler()
         {
             _droneStateMachine.SetState<PlayerChaseState>();
         }
         
-        private void OnTargetChasedEventHandler()
+        protected void OnTargetChasedEventHandler()
         {
             _droneStateMachine.SetState<AttackState>();
         }
