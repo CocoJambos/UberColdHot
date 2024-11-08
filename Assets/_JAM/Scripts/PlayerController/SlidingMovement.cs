@@ -11,6 +11,10 @@ public class SlidingMovement : MonoBehaviour
     private float playerHeightWhileSliding = 0.5f;
     [SerializeField]
     private float slidingFriction = 0.3f;
+    [SerializeField]
+    private float slidingStartBoost = 10f;
+    //[SerializeField]
+    //private float slidingStartBoostDelay = 1f;
     //[SerializeField]
     //private float maxSlidingSideSpeed = 10f;
     //[SerializeField]
@@ -98,6 +102,7 @@ public class SlidingMovement : MonoBehaviour
     public void OnSlidingStarted()
     {
         Movement.SetHeight(playerHeightWhileSliding);
+        Movement.AddForce(cameraController.transform.forward * slidingStartBoost, ForceMode.Impulse);
 
         cameraMoveTween?.Kill();
         cameraMoveTween = moveCameraToSlidingPositionAnim.PlayTween();
@@ -106,6 +111,7 @@ public class SlidingMovement : MonoBehaviour
     public void OnSlidingStopped()
     {
         Movement.SetHeight(character.unCrouchedHeight);
+        Movement.AddForce(-cameraController.transform.forward * slidingStartBoost, ForceMode.Impulse); // so the boost is not abused
 
         cameraMoveTween?.Kill();
         cameraMoveTween = moveCameraToStandingPositionAnim.PlayTween();
