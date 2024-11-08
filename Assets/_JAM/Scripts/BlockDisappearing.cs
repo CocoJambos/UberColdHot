@@ -42,8 +42,8 @@ public class BlockDisappearing : MonoBehaviour
     private void StartDisappearing()
     {
         isAppearingOrDisappearing = true;
-        if(_disappearingCubeInvokers != null && _disappearingCubeInvokers.Length > 0)
-        _disappearingCubeInvokers[Random.Range(0,_disappearingCubeInvokers.Length)].PlayAudio();
+       // if(_disappearingCubeInvokers != null && _disappearingCubeInvokers.Length > 0)
+     //   _disappearingCubeInvokers[Random.Range(0,_disappearingCubeInvokers.Length)].PlayAudio();
         disappearingTween.PlayTween();
     }
 
