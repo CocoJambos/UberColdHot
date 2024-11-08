@@ -1,5 +1,6 @@
 using ECM2;
 using JAM.AIModule.Drone;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum CustomMovementModes
@@ -39,6 +40,9 @@ public class FirstPersonCharacterController : Character
     [SerializeField] private float m_minLandingVelocityForDistantBodyFall = 10f;
     [SerializeField] private float m_minLandingVelocityForAnyBodyFall = 5f;
     [SerializeField] private AudioRecord m_jumpAudio;
+    [SerializeField] private List<AudioRecord> m_footStepsAudio;
+    [SerializeField] private float footStepsAudioDelay = 1f;
+    [SerializeField] private AudioSource fallingInAirAudioSource;
 
     private float m_BaseMaxAcceleration;
     private bool m_WasJumpTriggered;
@@ -49,6 +53,7 @@ public class FirstPersonCharacterController : Character
     private bool m_PastUpdateJumpState;
     private MovementMode m_PrevMovementMode;
     private int m_PrevCustomMovementMode;
+    private float footStepsAudioTimestamp = 0f;
 
     private bool CanSlide => IsWalking();
 
@@ -116,6 +121,16 @@ public class FirstPersonCharacterController : Character
         }
 
         m_PastUpdateJumpState = isJumpPressed;
+
+        // walking audio
+        if(IsWalking() || IsWallRunning())
+        {
+            if(Time.time > footStepsAudioTimestamp + footStepsAudioDelay && GetVelocity().magnitude > 0.1f)
+            {
+                footStepsAudioTimestamp = Time.time;
+                SoundManager.Instance.Play(m_footStepsAudio.GetRandomElement(), transform.position);
+            }
+        }
     }
 
     protected override void OnBeforeSimulationUpdate(float deltaTime)
@@ -193,6 +208,16 @@ public class FirstPersonCharacterController : Character
             }
 
             return;
+        }
+
+        if(IsFalling())
+        {
+            fallingInAirAudioSource.Play();
+        }
+
+        if(prevMovementMode == MovementMode.Falling)
+        {
+            fallingInAirAudioSource.Stop();
         }
 
         if(GetMovementMode() == MovementMode.Custom)

@@ -7,7 +7,9 @@ public class SoundManager : DontDestroySingleBehaviour<SoundManager>
     [SerializeField]
     private AudioSource audioSourcePrefab;
 
-    public void Play(AudioRecord audioRecord, Vector3 position, float volumeModifier = 1f)
+    public void Play(AudioRecord audioRecord, Vector3 position, float volumeModifier = 1f) => PlayAndReturnAudioSource(audioRecord, position, volumeModifier);
+
+    public AudioSource PlayAndReturnAudioSource(AudioRecord audioRecord, Vector3 position, float volumeModifier = 1f)
     {
         AudioSource spawnedAudioSource = Instantiate(audioSourcePrefab, position, Quaternion.identity);
         float randomPitchValue = audioRecord.randomPitch ? UnityEngine.Random.Range(audioRecord.minPitch, audioRecord.maxPitch) : 1f;
@@ -15,6 +17,7 @@ public class SoundManager : DontDestroySingleBehaviour<SoundManager>
         spawnedAudioSource.PlayOneShot(audioRecord.audioClip, audioRecord.volume * volumeModifier);
 
         Destroy(spawnedAudioSource.gameObject, audioRecord.audioClip.length / randomPitchValue);
+        return spawnedAudioSource;
     }
 }
 
