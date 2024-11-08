@@ -54,9 +54,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5147113503351151079, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
       propertyPath: m_Name
-      value: BasicBlock2x2
+      value: BasicBlock_NonDestroyable 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8499811974178473805, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
+      propertyPath: onPlayerCollided.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3447348753169045389, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
+    - {fileID: 7396905771845597662, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
+    - {fileID: 930032758368570506, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
+    - {fileID: 8499811974178473805, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -4,11 +4,13 @@ using UnityEngine;
 public class TimeManager : SingleBehaviour<TimeManager>
 {
     private float _timeScale = 1f;
-    
-    public float TimeScale => _timeScale;
 
-    public void SetCurrentTimeScale(float timeScale)
+    public float TimeScale
     {
-        _timeScale = Mathf.Clamp(timeScale, 0f, 1f);
+        get => _timeScale;
+        set
+        {
+            _timeScale = Mathf.Clamp(value, 0f, 1f);
+        }
     }
 }

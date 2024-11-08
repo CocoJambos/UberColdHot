@@ -31,7 +31,7 @@ public class FirstPersonCharacterController : Character
 
     [SerializeField] private LayerMask m_droneLayerMask;
     [SerializeField] private float m_droneJumpBoostScalar = 10f;
-    
+
     private float m_BaseMaxAcceleration;
     private bool m_WasJumpTriggered;
     private bool m_WasWallRunTriggeredPastUpdate;
@@ -151,7 +151,7 @@ public class FirstPersonCharacterController : Character
     protected override void OnCharacterMovementUpdated(float deltaTime)
     {
         base.OnCharacterMovementUpdated(deltaTime);
-        
+
         TryBoostPlayerOnDrone();
     }
 
@@ -166,7 +166,7 @@ public class FirstPersonCharacterController : Character
     {
         base.OnMovementModeChanged(prevMovementMode, prevCustomMode);
 
-        Debug.LogError($"{prevMovementMode.ToString()}");
+        Debug.Log($"Prev Movement: {prevMovementMode.ToString()}");
 
         if(prevMovementMode == MovementMode.Custom)
         {
@@ -247,19 +247,19 @@ public class FirstPersonCharacterController : Character
     {
         if(!IsFalling())
             return;
-        
+
         QueryTriggerInteraction cachedTriggerInteraction = characterMovement.triggerInteraction;
         characterMovement.triggerInteraction = QueryTriggerInteraction.Collide;
         bool droneDetected = characterMovement.Raycast(characterMovement.GetFootPosition(),
             Vector3.down, 3f, m_droneLayerMask, out RaycastHit raycastHit);
         characterMovement.triggerInteraction = cachedTriggerInteraction;
-            
+
         if(!droneDetected || !raycastHit.collider)
             return;
-            
+
         if(!raycastHit.collider.TryGetComponent(out DroneController droneController))
             return;
-        
+
         LaunchCharacter(Vector3.up * m_droneJumpBoostScalar);
         droneController.KillDrone();
     }
@@ -325,7 +325,7 @@ public class FirstPersonCharacterController : Character
         }
 
         Vector3 wallForward = Vector3.Cross(result.surfaceNormal, Vector3.up);
-        
+
         if(result.collider && result.collider.transform.parent.TryGetComponent(out BlockDisappearing blockDisappearing))
             blockDisappearing.TryToStartDisappearingOnPlayerTouch(0.5f);
 
