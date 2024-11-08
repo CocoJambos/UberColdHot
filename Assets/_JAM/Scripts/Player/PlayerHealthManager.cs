@@ -27,6 +27,7 @@ public class PlayerHealthManager : SingleBehaviour<PlayerHealthManager>
     {
         if(CurrentHealth <= 0) {return;}
         _hitSoundInvoker[Random.Range(0,_hitSoundInvoker.Length)].PlayAudio();
+        VOController.Instance.PlayPlayerDeathMessage();
     }
 
     private void HealthManagerOnOnHealthValueChanged(int health)
