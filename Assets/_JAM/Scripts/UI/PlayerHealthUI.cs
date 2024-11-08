@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,14 +5,14 @@ public class PlayerHealthUI : MonoBehaviour
 {
     [SerializeField]
     private Text _healthTextElement;
-    
+
     [SerializeField]
     private GameObject _deathScreen;
-    
+
     private PlayerHealthManager _playerHealthManager;
 
-    private const string Fraze = "HEALTH:";
-    
+    private const string Fraze = "HEALTH: ";
+
     void Start()
     {
         _playerHealthManager = PlayerHealthManager.Instance;

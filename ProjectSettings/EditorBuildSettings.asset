@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/_JAM/Scenes/Level_MainScene.unity
     guid: d0f3d22973d8652408d39f900c58570a
   - enabled: 1
+    path: Assets/_JAM/Scenes/Level_SecondScene.unity
+    guid: b869344428bd27b4c830bc655bab4cfe
+  - enabled: 1
     path: Assets/_JAM/Scenes/MovementTestArea.unity
     guid: e707db56116fa544db2d0f0dcef5da8f
   - enabled: 1
