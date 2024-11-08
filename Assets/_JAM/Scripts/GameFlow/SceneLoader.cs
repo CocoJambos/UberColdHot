@@ -11,8 +11,8 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private List<SceneReference> m_GameplayScenes;
     [SerializeField] private List<SceneReference> m_SystemScenes;
     
-    public bool IsLoadingActionDone;
-    public SceneLoader Singleton => m_Instance;
+    public bool IsLoadingActionDone => m_isLoadingActionDone;
+    public static SceneLoader Singleton => m_Instance;
     
     private Scene m_LoadedScene;
     private bool m_isLoadingActionDone;
