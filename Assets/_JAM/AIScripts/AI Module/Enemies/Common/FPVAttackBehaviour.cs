@@ -9,6 +9,7 @@ namespace JAM.AIModule
         [SerializeField] private HealthManager _droneHealthManager;
         [SerializeField] private float _targetChasedMinDistance;
         [SerializeField] private int _damagePerExplosion = 25;
+        [SerializeField] private AudioInvoker _attackAudioInvoker;
         
         private PlayerHealthManager _playerHealthManager;
         private Transform _target;
@@ -40,6 +41,7 @@ namespace JAM.AIModule
         
         public void AttackTarget()
         {
+            _attackAudioInvoker.PlayAudio();
             _playerHealthManager.ApplyDamage(_damagePerExplosion);
             _droneHealthManager.Kill();
         }

@@ -15,6 +15,7 @@ namespace JAM.AIModule
         [SerializeField] private Vector2 _chasingFlyHeightRange;
         [SerializeField] private float _attackDelay = 2f;
         [SerializeField] private int _damagePerHit = 10;
+        [SerializeField] private AudioInvoker _attackAudioInvoker;
         
         private PlayerHealthManager _playerHealthManager;
         private TimeManager _timeManager;
@@ -107,6 +108,7 @@ namespace JAM.AIModule
         private void AttakTargetRoutine()
         {
             _playerHealthManager.ApplyDamage(_damagePerHit);
+            _attackAudioInvoker.PlayAudio();
             Debug.Log("Paw! Attack Player");
         }
 
