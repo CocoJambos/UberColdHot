@@ -1,12 +1,15 @@
 using JAM.AIModule;
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerHealthManager : SingleBehaviour<PlayerHealthManager>
 {
     [SerializeField] private HealthManager _healthManager;
     [SerializeField] private FirstPersonCharacterController _characterController;
-
+    [SerializeField] private AudioInvoker[] _hitSoundInvoker;
+    [SerializeField] private AudioInvoker _deathSoundInvoker;
+    
     public event Action OnPlayerDiedEvent;
     public event Action<int> OnHealthValueChanged;
 
@@ -17,6 +20,13 @@ public class PlayerHealthManager : SingleBehaviour<PlayerHealthManager>
         base.Awake();
         _healthManager.OnMinimalHealthReached += HealthManagerOnOnMinimalHealthReached;
         _healthManager.OnHealthValueChanged += HealthManagerOnOnHealthValueChanged;
+        _healthManager.OnEntityDamaged += HealthManagerOnOnEntityDamaged;
+    }
+
+    private void HealthManagerOnOnEntityDamaged()
+    {
+        if(CurrentHealth <= 0) {return;}
+        _hitSoundInvoker[Random.Range(0,_hitSoundInvoker.Length)].PlayAudio();
     }
 
     private void HealthManagerOnOnHealthValueChanged(int health)
@@ -28,6 +38,7 @@ public class PlayerHealthManager : SingleBehaviour<PlayerHealthManager>
     {
         _healthManager.OnMinimalHealthReached -= HealthManagerOnOnMinimalHealthReached;
         _healthManager.OnHealthValueChanged -= HealthManagerOnOnHealthValueChanged;
+        _healthManager.OnEntityDamaged -= HealthManagerOnOnEntityDamaged;
     }
 
     public void ApplyDamage(int damage)
@@ -42,6 +53,8 @@ public class PlayerHealthManager : SingleBehaviour<PlayerHealthManager>
     
     private void HealthManagerOnOnMinimalHealthReached()
     {
+        _deathSoundInvoker.PlayAudio();
+
         OnPlayerDiedEvent?.Invoke();
         _characterController.enabled = false;
     }

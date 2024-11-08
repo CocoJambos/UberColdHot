@@ -90,7 +90,7 @@ namespace JAM.AIModule
         {
             while(_isAttacking)
             {
-                AttakTargetRoutine();
+                AttackTargetRoutine();
                 yield return StartCoroutine(AttackWaiter());
             }
         }
@@ -105,11 +105,10 @@ namespace JAM.AIModule
             }
         }
 
-        private void AttakTargetRoutine()
+        private void AttackTargetRoutine()
         {
             _playerHealthManager.ApplyDamage(_damagePerHit);
             _attackAudioInvoker.PlayAudio();
-            Debug.Log("Paw! Attack Player");
         }
 
         private float CalculateFlyingHeight() => Random.Range(_chasingFlyHeightRange.x, _chasingFlyHeightRange.y);

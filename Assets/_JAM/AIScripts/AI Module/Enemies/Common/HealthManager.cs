@@ -9,6 +9,7 @@ namespace JAM.AIModule
         private int _maxHealth = 100;
         
         private int _currentHealth;
+        private bool IsDead => _currentHealth <= 0;
 
         public int CurrentHealth
         {
@@ -26,6 +27,7 @@ namespace JAM.AIModule
 
         public event Action OnMinimalHealthReached;
         public event Action<int> OnHealthValueChanged;
+        public event Action OnEntityDamaged;
 
         private void Start()
         {
@@ -34,7 +36,9 @@ namespace JAM.AIModule
 
         public void TakeDamage(int damage)
         {
+            if(IsDead) {return;}
             CurrentHealth -= damage;
+            OnEntityDamaged?.Invoke();
         }
 
         public void Kill()
