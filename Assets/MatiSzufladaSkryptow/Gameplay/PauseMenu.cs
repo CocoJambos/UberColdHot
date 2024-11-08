@@ -1,11 +1,18 @@
+using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField]
-    private UIElement pauseUIElement;
+    private UIDocument pauseUIElement;
 
     public bool IsPaused { get; private set; } = false;
+
+    public void Start()
+    {
+        pauseUIElement.enabled = false;
+    }
 
     public void ChangePauseState()
     {
@@ -22,14 +29,14 @@ public class PauseMenu : MonoBehaviour
 
     private void Pause()
     {
-        pauseUIElement.Show();
+        pauseUIElement.enabled = true;
         Time.timeScale = 0f;
         CursorManager.Instance.CurrentCursorLockMode = CursorLockMode.None;
     }
 
     private void Unpause()
     {
-        pauseUIElement.Hide();
+        pauseUIElement.enabled = false;
         Time.timeScale = 1f;
         CursorManager.Instance.CurrentCursorLockMode = CursorLockMode.Locked;
     }
