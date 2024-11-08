@@ -5,7 +5,7 @@ public class VOController : SingleBehaviour<VOController>
 {
     public bool _playInitAlert = false;
 
-    public AudioInvoker _initAlert;
+    public AudioSource _initAlert;
     public AudioInvoker _infoAlert;
 
     public AudioInvoker _playerDeathAlert;
@@ -15,7 +15,7 @@ public class VOController : SingleBehaviour<VOController>
     {
         if(_playInitAlert)
         {
-            _initAlert.PlayAudio(PlayerTransform.Get().position);
+            _initAlert.Play();
         }
 
         StartCoroutine(InfoMessageRoutine());
