@@ -8,7 +8,7 @@ public class GameplayManager : SingleBehaviour<GameplayManager>
 
     public void RestartCurrentLevel()
     {
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void ChangePauseState() => pauseMenu.ChangePauseState();
