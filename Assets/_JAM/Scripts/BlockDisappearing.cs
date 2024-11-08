@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -17,6 +18,9 @@ public class BlockDisappearing : MonoBehaviour
     [SerializeField]
     [ShowIf(nameof(appearAfterDisappearing))]
     private float appearingDelay = 5f;
+    
+    [SerializeField] private AudioInvoker[] _disappearingCubeInvokers;
+
 
     private bool isAppearingOrDisappearing = false;
 
@@ -38,6 +42,8 @@ public class BlockDisappearing : MonoBehaviour
     private void StartDisappearing()
     {
         isAppearingOrDisappearing = true;
+        if(_disappearingCubeInvokers != null && _disappearingCubeInvokers.Length > 0)
+        _disappearingCubeInvokers[Random.Range(0,_disappearingCubeInvokers.Length)].PlayAudio();
         disappearingTween.PlayTween();
     }
 
