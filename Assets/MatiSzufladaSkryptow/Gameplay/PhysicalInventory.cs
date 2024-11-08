@@ -32,8 +32,6 @@ public class PhysicalInventory : SingleBehaviour<PhysicalInventory>
         {
             rigid.isKinematic = true;
         }
-
-        SoundManager.Instance.Play(Audio.PickUp);
     }
 
     public TakeableItem TryToTakeItemOfType(TakeableItemType type)
@@ -58,8 +56,6 @@ public class PhysicalInventory : SingleBehaviour<PhysicalInventory>
 
         PhysicalItemSlot slot = slots.First(slot => slot.item == item);
         slot.item = null;
-
-        SoundManager.Instance.Play(Audio.Drop);
     }
 
     [Serializable]

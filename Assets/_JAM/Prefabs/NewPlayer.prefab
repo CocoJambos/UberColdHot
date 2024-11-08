@@ -657,6 +657,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   m_droneJumpBoostScalar: 10
+  m_closeBodyFallAudio:
+    audioClip: {fileID: 8300000, guid: 91c2e421e4977c94fb56f5d7cf0998a4, type: 3}
+    volume: 1
+    randomPitch: 1
+    minPitch: 0.8
+    maxPitch: 1.2
+  m_distantBodyFallAudio:
+    audioClip: {fileID: 8300000, guid: 68b3de2fe976db64699e1dc1685ab4eb, type: 3}
+    volume: 1
+    randomPitch: 1
+    minPitch: 0.8
+    maxPitch: 1.2
+  m_minLandingVelocityForDistantBodyFall: 15
+  m_minLandingVelocityForAnyBodyFall: 1
 --- !u!114 &3060709911955681606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -687,6 +701,7 @@ MonoBehaviour:
   character: {fileID: 6846993595182645759}
   playerHeightWhileSliding: 0.5
   slidingFriction: 0.2
+  slidingStartBoost: 10
   cameraController: {fileID: 3060709911955681606}
   moveCameraToSlidingPositionAnim: {fileID: 7536902025561169712}
   moveCameraToStandingPositionAnim: {fileID: 6909275998798233010}

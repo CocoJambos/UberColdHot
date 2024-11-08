@@ -29,8 +29,15 @@ public class FirstPersonCharacterController : Character
     [Header("Custom Movement Modes")]
     [SerializeField] private SlidingMovement slidingMovement;
 
+    [Header("Drone")]
     [SerializeField] private LayerMask m_droneLayerMask;
     [SerializeField] private float m_droneJumpBoostScalar = 10f;
+
+    [Header("Audio")]
+    [SerializeField] private AudioRecord m_closeBodyFallAudio;
+    [SerializeField] private AudioRecord m_distantBodyFallAudio;
+    [SerializeField] private float m_minLandingVelocityForDistantBodyFall = 10f;
+    [SerializeField] private float m_minLandingVelocityForAnyBodyFall = 5f;
 
     private float m_BaseMaxAcceleration;
     private bool m_WasJumpTriggered;
@@ -39,6 +46,8 @@ public class FirstPersonCharacterController : Character
     private Vector3 m_WallNormal;
     private float m_WallRunUpdateTime;
     private bool m_PastUpdateJumpState;
+    private MovementMode m_PrevMovementMode;
+    private int m_PrevCustomMovementMode;
 
     private bool CanSlide => IsWalking();
 
@@ -164,6 +173,9 @@ public class FirstPersonCharacterController : Character
 
     protected override void OnMovementModeChanged(MovementMode prevMovementMode, int prevCustomMode)
     {
+        m_PrevMovementMode = prevMovementMode;
+        m_PrevCustomMovementMode = prevCustomMode;
+
         base.OnMovementModeChanged(prevMovementMode, prevCustomMode);
 
         Debug.Log($"Prev Movement: {prevMovementMode.ToString()}");
@@ -221,6 +233,20 @@ public class FirstPersonCharacterController : Character
             Vector3.ProjectOnPlane(characterMovement.velocity, worldUp) + worldUp * verticalSpeed;
 
         return true;
+    }
+
+    protected override void OnLanded(Vector3 landingVelocity)
+    {
+        base.OnLanded(landingVelocity);
+
+        if(m_PrevMovementMode == MovementMode.Custom && m_PrevCustomMovementMode == (int)CustomMovementModes.Sliding)
+            return;
+
+        if(Mathf.Abs(landingVelocity.y) > m_minLandingVelocityForAnyBodyFall)
+        {
+            AudioRecord bodyFallAudio = Mathf.Abs(landingVelocity.y) > m_minLandingVelocityForDistantBodyFall ? m_distantBodyFallAudio : m_closeBodyFallAudio;
+            SoundManager.Instance.Play(bodyFallAudio, transform.position);
+        }
     }
 
     private void OnCustomMovementModeUpdated(float deltaTime)
