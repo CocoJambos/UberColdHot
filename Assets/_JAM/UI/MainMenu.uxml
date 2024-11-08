@@ -1,0 +1,10 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement name="MainContainer" style="flex-grow: 1; width: 100%; height: 100px; background-image: url(&quot;project://database/Assets/_JAM/Textures/MainMenu_Texture2D.png?fileID=2800000&amp;guid=817a92f18f1b34e7897d7cda6fc432e8&amp;type=3#MainMenu_Texture2D&quot;);">
+        <engine:VisualElement name="Controls" style="flex-grow: 1; padding-right: 10px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 10px; padding-bottom: 10px; padding-left: 10px;">
+            <engine:VisualElement name="Conatiner" style="flex-grow: 0.4; background-image: url(&quot;project://database/Assets/_JAM/Textures/Controlls_Texture2D.png?fileID=2800000&amp;guid=ece0a0931170b44c3aa86841a1dff5a5&amp;type=3#Controlls_Texture2D&quot;); padding-right: 0; height: auto; width: 33%;" />
+        </engine:VisualElement>
+        <engine:VisualElement name="PlayButton" style="flex-grow: 0.3; align-items: center; justify-content: center; align-self: center;">
+            <engine:Button text="Play" name="PlayBTN" style="-unity-text-align: middle-center; flex-wrap: nowrap; width: 275px; height: 65px; margin-top: 100px; background-image: url(&quot;project://database/Assets/_JAM/Textures/PlayButton_Texture2D.png?fileID=2800000&amp;guid=7063f3793005c44489c187bd7367112c&amp;type=3#PlayButton_Texture2D&quot;);" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>
