@@ -111,7 +111,10 @@ public class SlidingMovement : MonoBehaviour
     public void OnSlidingStopped()
     {
         Movement.SetHeight(character.unCrouchedHeight);
-        Movement.AddForce(-cameraController.transform.forward * slidingStartBoost, ForceMode.Impulse); // so the boost is not abused
+        if(character.IsWalking())
+        {
+            Movement.AddForce(-cameraController.transform.forward * slidingStartBoost, ForceMode.Impulse); // so the boost is not abused
+        }
 
         cameraMoveTween?.Kill();
         cameraMoveTween = moveCameraToStandingPositionAnim.PlayTween();

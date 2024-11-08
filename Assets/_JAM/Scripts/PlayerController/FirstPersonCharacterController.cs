@@ -208,7 +208,7 @@ public class FirstPersonCharacterController : Character
         if(!canJumpWhileCrouching && IsCrouched())
             return false;
 
-        return canEverJump && (IsWalking() || IsFalling() || IsWallRunning());
+        return canEverJump && (IsWalking() || IsFalling() || IsWallRunning() || IsSliding());
     }
 
     protected override bool DoJump()
