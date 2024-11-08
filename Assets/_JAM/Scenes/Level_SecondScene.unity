@@ -87274,6 +87274,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: FinishLine-BasicBlock2x2 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4372515952602281300, guid: 0897e2f510ffdf449a3bda0aa161fae1, type: 3}
+      propertyPath: allObjectivesCompleted
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5343170211476223266, guid: 0897e2f510ffdf449a3bda0aa161fae1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b0f432dc67f09c34bb74ad98d7431fc3, type: 2}
     - target: {fileID: 7891802638708377744, guid: 0897e2f510ffdf449a3bda0aa161fae1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 86.46
