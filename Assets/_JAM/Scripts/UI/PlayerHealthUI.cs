@@ -23,6 +23,7 @@ public class PlayerHealthUI : MonoBehaviour
 
     private void PlayerHealthManagerOnOnPlayerDiedEvent()
     {
+        VOController.Instance.PlayPlayerDeathMessage();
         _deathScreen.SetActive(true);
     }
 

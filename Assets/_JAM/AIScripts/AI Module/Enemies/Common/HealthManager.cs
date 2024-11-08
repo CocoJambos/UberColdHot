@@ -7,7 +7,7 @@ namespace JAM.AIModule
     {
         [SerializeField]
         private int _maxHealth = 100;
-        
+
         private int _currentHealth;
         private bool IsDead => _currentHealth <= 0;
 
@@ -18,7 +18,7 @@ namespace JAM.AIModule
             {
                 _currentHealth = Mathf.Clamp(value, 0, _maxHealth);
                 OnHealthValueChanged?.Invoke(_currentHealth);
-                if (_currentHealth <= 0)
+                if(_currentHealth <= 0)
                 {
                     OnMinimalHealthReached?.Invoke();
                 }
@@ -36,7 +36,8 @@ namespace JAM.AIModule
 
         public void TakeDamage(int damage)
         {
-            if(IsDead) {return;}
+            if(IsDead)
+            { return; }
             CurrentHealth -= damage;
             OnEntityDamaged?.Invoke();
         }

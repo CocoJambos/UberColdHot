@@ -1,34 +1,39 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
 public class VOController : SingleBehaviour<VOController>
 {
+    public bool _playInitAlert = false;
+
     public AudioInvoker _initAlert;
     public AudioInvoker _infoAlert;
 
     public AudioInvoker _playerDeathAlert;
     public AudioInvoker _gateOpenAlert;
-    
+
     private void Start()
     {
-        _initAlert.PlayAudio();
+        if(_playInitAlert)
+        {
+            _initAlert.PlayAudio(PlayerTransform.Get().position);
+        }
+
         StartCoroutine(InfoMessageRoutine());
     }
-    
+
     public void PlayPlayerDeathMessage()
     {
-        _playerDeathAlert.PlayAudio();
+        _playerDeathAlert.PlayAudio(PlayerTransform.Get().position);
     }
-    
+
     public void PlayGateOpenMessage()
     {
-        _gateOpenAlert.PlayAudio();
+        _gateOpenAlert.PlayAudio(PlayerTransform.Get().position);
     }
 
     IEnumerator InfoMessageRoutine()
     {
         yield return new WaitForSeconds(20f);
-        _infoAlert.PlayAudio();
+        _infoAlert.PlayAudio(PlayerTransform.Get().position);
     }
 }
