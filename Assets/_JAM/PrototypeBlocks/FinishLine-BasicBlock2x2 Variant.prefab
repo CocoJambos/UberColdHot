@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 1679115491443011011, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: b0f432dc67f09c34bb74ad98d7431fc3, type: 2}
+      objectReference: {fileID: 2100000, guid: d1797ab6fb8211b4c9b5c2fbdf194174, type: 2}
     - target: {fileID: 3526031484904919153, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.222
@@ -108,7 +108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8499811974178473805, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
       propertyPath: onPlayerCollided.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8499811974178473805, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
       propertyPath: onPlayerCollided.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -118,6 +118,10 @@ PrefabInstance:
       propertyPath: onPlayerCollided.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8499811974178473805, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
+      propertyPath: onPlayerCollided.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4372515952602281300}
     - target: {fileID: 8499811974178473805, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
       propertyPath: onPlayerCollided.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -135,12 +139,20 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8499811974178473805, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
+      propertyPath: onPlayerCollided.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadNextLevelIfAllObjectivesAreCompleted
+      objectReference: {fileID: 0}
+    - target: {fileID: 8499811974178473805, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
       propertyPath: onPlayerCollided.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: LoadNextLevel
+      value: LoadNextLevelIfAllObjectivesAreCompleted
       objectReference: {fileID: 0}
     - target: {fileID: 8499811974178473805, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
       propertyPath: onPlayerCollided.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: PlayAudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 8499811974178473805, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
+      propertyPath: onPlayerCollided.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NextLevel, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8499811974178473805, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
       propertyPath: onPlayerCollided.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -168,6 +180,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5147113503351151079, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4372515952602281300}
+    - targetCorrespondingSourceObject: {fileID: 5147113503351151079, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7339300745984027111}
+    - targetCorrespondingSourceObject: {fileID: 5147113503351151079, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4164439739680015216}
   m_SourcePrefab: {fileID: 100100000, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
 --- !u!4 &182358836975364607 stripped
 Transform:
@@ -189,5 +207,105 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09f2da1d5449f644ca3537193d8552fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lodalLevelDelay: 2
+  allObjectivesCompleted: 0
+  onBeforeNewLevelLoaded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8267724044152541036}
+        m_TargetAssemblyTypeName: BlockDisappearing, Assembly-CSharp
+        m_MethodName: TryToStartDisappearingOnPlayerTouch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3279594102303961653}
+        m_TargetAssemblyTypeName: AudioInvoker, Assembly-CSharp
+        m_MethodName: PlayAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7339300745984027111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875065546822729990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267434dd5f2c3d347bde7778252134ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 5343170211476223266}
+  defaultMaterial: {fileID: 2100000, guid: d1797ab6fb8211b4c9b5c2fbdf194174, type: 2}
+  materialToSwap: {fileID: 2100000, guid: b0f432dc67f09c34bb74ad98d7431fc3, type: 2}
+--- !u!114 &4164439739680015216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875065546822729990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb03f04698bdcb488373fa5dd7f4294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons: []
+  onAllButtonsPressed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4372515952602281300}
+        m_TargetAssemblyTypeName: NextLevel, Assembly-CSharp
+        m_MethodName: SetAllObjectivesCompleted
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 7339300745984027111}
+        m_TargetAssemblyTypeName: MaterialSwapper, Assembly-CSharp
+        m_MethodName: SwapMaterials
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!23 &5343170211476223266 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1679115491443011011, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
+  m_PrefabInstance: {fileID: 6731661379497744609}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8267724044152541036 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3447348753169045389, guid: 6f79a8f755029da4b93fabe187e2e6be, type: 3}
+  m_PrefabInstance: {fileID: 6731661379497744609}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875065546822729990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e23d2bf2ebf8ed84baa166c2ca2b4b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
