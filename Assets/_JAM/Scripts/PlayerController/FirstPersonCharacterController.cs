@@ -38,6 +38,7 @@ public class FirstPersonCharacterController : Character
     [SerializeField] private AudioRecord m_distantBodyFallAudio;
     [SerializeField] private float m_minLandingVelocityForDistantBodyFall = 10f;
     [SerializeField] private float m_minLandingVelocityForAnyBodyFall = 5f;
+    [SerializeField] private AudioRecord m_jumpAudio;
 
     private float m_BaseMaxAcceleration;
     private bool m_WasJumpTriggered;
@@ -90,6 +91,7 @@ public class FirstPersonCharacterController : Character
             {
                 Jump();
                 m_WasJumpTriggered = true;
+                SoundManager.Instance.Play(m_jumpAudio, transform.position);
             }
         }
         else
@@ -100,6 +102,7 @@ public class FirstPersonCharacterController : Character
         if(isJumpPressed && IsWallRunning() && !m_PastUpdateJumpState)
         {
             Jump();
+            SoundManager.Instance.Play(m_jumpAudio, transform.position);
         }
 
         bool isSlidePressed = m_InputHandler.InputMovementContext.IsSlidePressedInput;

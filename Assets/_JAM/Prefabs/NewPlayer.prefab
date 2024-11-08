@@ -756,6 +756,12 @@ MonoBehaviour:
     maxPitch: 1.2
   m_minLandingVelocityForDistantBodyFall: 15
   m_minLandingVelocityForAnyBodyFall: 1
+  m_jumpAudio:
+    audioClip: {fileID: 8300000, guid: 9a812c5d0ad437b418dbf5525ecb208d, type: 3}
+    volume: 1
+    randomPitch: 0
+    minPitch: 0.8
+    maxPitch: 1.2
 --- !u!114 &3060709911955681606
 MonoBehaviour:
   m_ObjectHideFlags: 0
