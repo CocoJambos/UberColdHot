@@ -81,6 +81,56 @@ MonoBehaviour:
     randomPitch: 0
     minPitch: 0.8
     maxPitch: 1.2
+--- !u!1 &5692216994133463873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6782320243975719730}
+  - component: {fileID: 7445055612475490130}
+  m_Layer: 0
+  m_Name: GateOpenAlert
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6782320243975719730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5692216994133463873}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1726348025856402114}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7445055612475490130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5692216994133463873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57fbeb65feef9ce4ea59f2e91a5a00ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioRecord:
+    audioClip: {fileID: 8300000, guid: 4978b768f37169a438782d45c0e12599, type: 3}
+    volume: 5
+    randomPitch: 0
+    minPitch: 0.8
+    maxPitch: 1.2
 --- !u!1001 &6777041372785940896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142,6 +192,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7185337301722728154}
+    - targetCorrespondingSourceObject: {fileID: 5330532817368922978, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6782320243975719730}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4805916905567576536, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
       insertIndex: 3
@@ -149,6 +202,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4805916905567576536, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
       insertIndex: 4
       addedObject: {fileID: 5945219395295192559}
+    - targetCorrespondingSourceObject: {fileID: 4805916905567576536, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 570510223190462341}
   m_SourcePrefab: {fileID: 100100000, guid: 54798521a6845fa488b486c1a5b82cb6, type: 3}
 --- !u!4 &1726348025856402114 stripped
 Transform:
@@ -200,6 +256,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 570510223190462341}
+        m_TargetAssemblyTypeName: GateAudioController, Assembly-CSharp
+        m_MethodName: PlayGateOpenAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5945219395295192559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,3 +300,17 @@ MonoBehaviour:
   targetEulerRotation: {x: 0, y: 0, z: 0}
   targetScale: {x: 0, y: 0, z: 0}
   targetColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &570510223190462341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071348852739176568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187c28e192413a74a8c4a95be5f38035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioInvoker: {fileID: 7445055612475490130}
+  delayTime: 3
